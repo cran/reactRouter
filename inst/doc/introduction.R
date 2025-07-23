@@ -50,6 +50,7 @@ Layout <- div(
 
 reactRouter::HashRouter(
   div(
+    style = "border:1px solid black;", # add border just for the example
     h1("Basic Example"),
     tags$p(
       paste0('This example demonstrates some of the core features of React Router

@@ -1,9 +1,10 @@
 Package: reactRouter
 Type: Package
 Title: 'React Router' for 'shiny' Apps and 'Quarto'
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(given = "Felix", family = "Luginbuhl", role = c("aut", "cre"), email = "felix.luginbuhl@protonmail.ch", comment = c(ORCID = "0009-0008-6625-2899")),
+    person(given = "Andryas", family = "Waurzenczak", role = c("ctb")),
     person(family = "Shopify Inc.", role = c("ctb", "cph"), comment = "Shopify Inc. template <https://reactrouter.com/>")
     )
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
@@ -13,7 +14,7 @@ Description: You can easily share url pages using 'React Router' in 'shiny' appl
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 3.4)
-Imports: htmltools, shiny, shiny.react, checkmate
+Imports: htmltools, shiny, shiny.react, checkmate, uuid
 Suggests: testthat (>= 3.0.0), chromote (>= 0.1.1.9001), shinytest2,
         knitr, rmarkdown
 RoxygenNote: 7.3.2
@@ -22,9 +23,11 @@ BugReports: https://github.com/lgnbhl/reactRouter/issues
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-04-28 19:31:39 UTC; felix
-Author: Felix Luginbuhl [aut, cre] (<https://orcid.org/0009-0008-6625-2899>),
+Packaged: 2025-07-23 14:05:29 UTC; felix
+Author: Felix Luginbuhl [aut, cre] (ORCID:
+    <https://orcid.org/0009-0008-6625-2899>),
+  Andryas Waurzenczak [ctb],
   Shopify Inc. [ctb, cph] (Shopify Inc. template
     <https://reactrouter.com/>)
 Repository: CRAN
-Date/Publication: 2025-04-29 09:10:08 UTC
+Date/Publication: 2025-07-23 14:30:02 UTC

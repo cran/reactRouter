@@ -15063,8 +15063,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -15075,7 +15076,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -15375,454 +15376,357 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="fu">Route</span>(<span class="at">path =</span> <span class="st">&quot;/analysis&quot;</span>, <span class="at">element =</span> <span class="st">&quot;Analysis content&quot;</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  )</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>)</span></code></pre></div>
-<div class="react-container" data-react-id="yjnidzbiulswwraavkzb">
-<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"raw","value":{"to":"/","children":"Main"}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"raw","value":{"to":"/analysis","children":"Analysis"}}},{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"raw","value":{"path":"/","element":"Main content"}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"raw","value":{"path":"/analysis","element":"Analysis content"}}}]}}}}]}}}}</script>
-<script>jsmodule['@/shiny.react'].findAndRenderReactData('yjnidzbiulswwraavkzb')</script>
+<div class="react-container" data-react-id="raxqigatcsssapruaxyb">
+<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"raw","value":{"to":"/","reloadDocument":true,"children":"Main"}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"raw","value":{"to":"/analysis","reloadDocument":true,"children":"Analysis"}}},{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"element":{"type":"element","name":"div","props":{"type":"raw","value":{"key":"dcabc638-bdd4-4a15-94b2-d3580334aecd","children":"Main content"}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/analysis"},"element":{"type":"element","name":"div","props":{"type":"raw","value":{"key":"88803173-4010-4087-8bae-cb647d45f13f","children":"Analysis content"}}}}}}]}}}}]}}}}</script>
+<script>jsmodule['@/shiny.react'].findAndRenderReactData('raxqigatcsssapruaxyb')</script>
 </div>
-<div id="usage-with-quarto" class="section level3">
-<h3>Usage with Quarto</h3>
-<p>As React Router provides client routing, you can easily create
-multiple routes in a Quarto and R markdown documents:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># code to run in a Quarto document</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># example adapted from: https://github.com/remix-run/react-router/tree/dev/examples/basic</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>Layout <span class="ot">&lt;-</span> <span class="fu">div</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="co"># A &quot;layout route&quot; is a good place to put markup you want to</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="co"># share across all the pages on your site, like navigation.</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">nav</span>(</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Home&quot;</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>      ),</span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/dashboard&quot;</span>, <span class="st">&quot;Dashboard&quot;</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>      ),</span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/nothing-here&quot;</span>, <span class="st">&quot;Nothing Here&quot;</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>      )</span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>    )</span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>  ),</span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">hr</span>(),</span>
-<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>  <span class="co"># An &lt;Outlet&gt; renders whatever child route is currently active,</span></span>
-<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>  <span class="co"># so you can think about this &lt;Outlet&gt; as a placeholder for</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="co"># the child routes we defined above.</span></span>
-<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>  reactRouter<span class="sc">::</span><span class="fu">Outlet</span>()</span>
-<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>)</span>
-<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
-<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>  <span class="fu">div</span>(</span>
-<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>    <span class="fu">h1</span>(<span class="st">&quot;Basic Example&quot;</span>),</span>
-<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">p</span>(</span>
-<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&#39;This example demonstrates some of the core features of React Router</span></span>
-<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="st">          including nested reactRouter::Route(), reactRouter::Outlet(), </span></span>
-<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="st">          reactRouter::Link(), and using a &quot;*&quot; route (aka &quot;splat route&quot;) </span></span>
-<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="st">          to render a &quot;not found&quot; page when someone visits an unrecognized URL.&#39;</span></span>
-<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>      )</span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>    ),</span>
-<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>    reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
-<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>      <span class="fu">Route</span>(</span>
-<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
-<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>        <span class="at">element =</span> Layout,</span>
-<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
-<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>          <span class="at">index =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Home&quot;</span>),</span>
-<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Home content&quot;</span>)</span>
-<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a>          )</span>
-<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>        ),</span>
-<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
-<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;dashboard&quot;</span>,</span>
-<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Dashboard&quot;</span>),</span>
-<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Dashboard here&quot;</span>)</span>
-<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a>          )</span>
-<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a>        ),</span>
-<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a>        <span class="co"># Using path=&quot;*&quot;&quot; means &quot;match anything&quot;, so this route</span></span>
-<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>        <span class="co"># acts like a catch-all for URLs that we don&#39;t have explicit</span></span>
-<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a>        <span class="co"># routes for.</span></span>
-<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
-<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;*&quot;</span>,</span>
-<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Nothing to see here!&quot;</span>),</span>
-<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(</span>
-<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a>              <span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Go to the home page&quot;</span>)</span>
-<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a>            )</span>
-<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a>          )</span>
-<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a>        )</span>
-<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a>      )</span>
-<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a>    )</span>
-<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a>  )</span>
-<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a>)</span></code></pre></div>
-<div class="react-container" data-react-id="coqaplftwchqpxzczzwd">
-<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h1","props":{"type":"raw","value":{"children":"Basic Example"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"This example demonstrates some of the core features of React Router\n          including nested reactRouter::Route(), reactRouter::Outlet(), \n          reactRouter::Link(), and using a \"*\" route (aka \"splat route\") \n          to render a \"not found\" page when someone visits an unrecognized URL."}}},{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"nav","props":{"type":"object","value":{"children":{"type":"element","name":"ul","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/","children":"Home"}}}}}},{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/dashboard","children":"Dashboard"}}}}}},{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/nothing-here","children":"Nothing Here"}}}}}}]}}}}}}},{"type":"element","name":"hr","props":{"type":"raw","value":[]}},{"type":"element","module":"react-router-dom","name":"Outlet","props":{"type":"raw","value":[]}}]}}}},"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"index":{"type":"raw","value":true},"element":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Home"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Home content"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"dashboard"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Dashboard"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Dashboard here"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"*"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Nothing to see here!"}}},{"type":"element","name":"p","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/","children":"Go to the home page"}}}}}}]}}}}}}}]}}}}}}}]}}}}}}}</script>
-<script>jsmodule['@/shiny.react'].findAndRenderReactData('coqaplftwchqpxzczzwd')</script>
+<div id="usage-with-shiny" class="section level3">
+<h3>Usage with shiny</h3>
+<p>A minimal example using <a href="https://shiny.posit.co/">shiny</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">HashRouter</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">NavLink</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">br</span>(),</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">NavLink</span>(<span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;uiMain&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    ),</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;uiOther&quot;</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    )</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  )</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>)</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>  output<span class="sc">$</span>uiMain <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>) } )</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>  output<span class="sc">$</span>uiOther <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;Other content&quot;</span>) })</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>}</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
 </div>
-</div>
-<div id="usage-with-r-shiny" class="section level3">
-<h3>Usage with R Shiny</h3>
-<p>Below a simple example using R Shiny:</p>
+<div id="usage-with-bslib" class="section level3">
+<h3>Usage with bslib</h3>
+<p>A minimal example using <a href="https://rstudio.github.io/bslib/">bslib</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(bslib)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="fu">titlePanel</span>(<span class="st">&quot;reactRouter&quot;</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>          <span class="at">to =</span> <span class="st">&quot;/&quot;</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>          <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({isActive}) =&gt; { return isActive ? {color: &quot;red&quot;, textDecoration:&quot;none&quot;} : {}; }&#39;</span>),</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>          <span class="st">&quot;Home&quot;</span>),</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>        <span class="fu">br</span>(),</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>          <span class="at">to =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>          <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({isActive}) =&gt; { return isActive ? {color: &quot;red&quot;, textDecoration: &quot;none&quot;} : {}; }&#39;</span>),</span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>          <span class="st">&quot;Analysis&quot;</span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>        ),</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>        <span class="fu">br</span>(),</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>          <span class="at">to =</span> <span class="st">&quot;/about&quot;</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>          <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({ isActive }) =&gt; { return isActive ? { color: &quot;red&quot;, textDecoration: &quot;none&quot; } : {}; }&#39;</span>),</span>
-<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>          <span class="st">&quot;About&quot;</span></span>
-<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>        )</span>
-<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>      ),</span>
-<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
-<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
-<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
-<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h1</span>(<span class="st">&quot;Home page&quot;</span>),</span>
-<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">&quot;A basic example of reactRouter.&quot;</span>),</span>
-<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a>              <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentHome&quot;</span>)</span>
-<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a>            )</span>
-<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a>          ),</span>
-<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
-<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h1</span>(<span class="st">&quot;Analysis&quot;</span>),</span>
-<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a>              DT<span class="sc">::</span><span class="fu">DTOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
-<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a>              )</span>
-<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a>          ),</span>
-<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/about&quot;</span>,</span>
-<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a>              <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentAbout&quot;</span>)</span>
-<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a>            )</span>
-<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a>          ),</span>
-<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(<span class="at">path =</span> <span class="st">&quot;*&quot;</span>, <span class="at">element =</span> <span class="fu">div</span>(tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Error 404&quot;</span>)))</span>
-<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a>        )</span>
-<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a>      )</span>
-<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a>    )</span>
-<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a>  )</span>
-<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a>)</span>
-<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a></span>
-<span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a>  output<span class="sc">$</span>contentHome <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a>    <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>)</span>
-<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a>  })</span>
-<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDT</span>({</span>
-<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a>  })</span>
-<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a>  output<span class="sc">$</span>contentAbout <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a>    <span class="fu">div</span>(</span>
-<span id="cb5-66"><a href="#cb5-66" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">h1</span>(<span class="st">&quot;About&quot;</span>),</span>
-<span id="cb5-67"><a href="#cb5-67" tabindex="-1"></a>      <span class="fu">p</span>(<span class="st">&quot;Content about&quot;</span>)</span>
-<span id="cb5-68"><a href="#cb5-68" tabindex="-1"></a>    )</span>
-<span id="cb5-69"><a href="#cb5-69" tabindex="-1"></a>  })</span>
-<span id="cb5-70"><a href="#cb5-70" tabindex="-1"></a>}</span>
-<span id="cb5-71"><a href="#cb5-71" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  bslib<span class="sc">::</span><span class="fu">page_navbar</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;reactRouter with bslib&quot;</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="fu">nav_item</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>      reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        <span class="st">&quot;Home&quot;</span>, </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>      )</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    ),</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="fu">nav_item</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>      reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>        <span class="st">&quot;Analysis&quot;</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>        <span class="at">to =</span> <span class="st">&quot;/analysis&quot;</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>      )</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>    ),</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>      reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>        <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>          tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">&quot;Home page&quot;</span>),</span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>          <span class="fu">p</span>(<span class="st">&quot;A basic example of reactRouter with bslib.&quot;</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>        )</span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>      ),</span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>      reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>        <span class="at">element =</span> <span class="st">&quot;Content analysis&quot;</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>      ),</span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>      reactRouter<span class="sc">::</span><span class="fu">Route</span>(<span class="at">path =</span> <span class="st">&quot;*&quot;</span>, <span class="at">element =</span> <span class="st">&quot;Custom error 404&quot;</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>    )</span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a>  )</span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" style="border:1px solid black;" src="data:image/png;base64,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" align="center" /></p>
 </div>
-<div id="usage-with-mui-material-ui" class="section level3">
-<h3>Usage with MUI Material UI</h3>
-<p>Below an example using MUI Material UI components from the
-<strong>shinyMaterialUI</strong> R package:</p>
+<div id="usage-with-shinymaterialui" class="section level3">
+<h3>Usage with shinyMaterialUI</h3>
+<p>A minimal example using <a href="https://felixluginbuhl.com/shinyMaterialUI/">shinyMaterialUI</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># remotes::install_github(&quot;lgnbhl/shinyMaterialUI&quot;)</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">library</span>(shinyMaterialUI)</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>ui <span class="ot">&lt;-</span> reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">CssBaseline</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="fu">Typography</span>(<span class="st">&quot;reactRouter with shinyMaterialUI&quot;</span>, <span class="at">variant =</span> <span class="st">&quot;h5&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>),</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>    <span class="fu">Stack</span>(</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>      <span class="at">direction =</span> <span class="st">&quot;row&quot;</span>, <span class="at">spacing =</span> <span class="dv">2</span>, <span class="at">p =</span> <span class="dv">2</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>      <span class="fu">Paper</span>(</span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>        <span class="fu">MenuList</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;/&quot;</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>            <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({isActive}) =&gt; { return isActive ? {color: &quot;red&quot;, textDecoration:&quot;none&quot;} : { textDecoration: &quot;none&quot; }; }&#39;</span>),</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>            <span class="fu">MenuItem</span>(</span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>              <span class="st">&quot;home&quot;</span></span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>            )</span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>          ),</span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a>          <span class="fu">br</span>(),</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>            <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({isActive}) =&gt; { return isActive ? {color: &quot;red&quot;, textDecoration: &quot;none&quot;} : { textDecoration: &quot;none&quot; }; }&#39;</span>),</span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a>            <span class="fu">MenuItem</span>(</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>              <span class="st">&quot;Analysis&quot;</span></span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>            )</span>
-<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>          ),</span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>          <span class="fu">br</span>(),</span>
-<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">NavLink</span>(</span>
-<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;/about&quot;</span>,</span>
-<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>            <span class="at">style =</span> <span class="fu">JS</span>(<span class="st">&#39;({ isActive }) =&gt; { return isActive ? { color: &quot;red&quot;, textDecoration: &quot;none&quot; } : { textDecoration: &quot;none&quot; }; }&#39;</span>),</span>
-<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>            <span class="fu">MenuItem</span>(</span>
-<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>              <span class="st">&quot;About&quot;</span></span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>            )</span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a>          )</span>
-<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a>        )</span>
-<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>      ),</span>
-<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a>      <span class="fu">Box</span>(</span>
-<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
-<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
-<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h1</span>(<span class="st">&quot;Home page&quot;</span>),</span>
-<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h4</span>(<span class="st">&quot;A basic example of reactRouter with shinyMaterialUI.&quot;</span>),</span>
-<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a>              <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentHome&quot;</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a>            )</span>
-<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a>          ),</span>
-<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
-<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h1</span>(<span class="st">&quot;Analysis&quot;</span>),</span>
-<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a>              <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentAnalysis&quot;</span>)</span>
-<span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a>              )</span>
-<span id="cb6-55"><a href="#cb6-55" tabindex="-1"></a>          ),</span>
-<span id="cb6-56"><a href="#cb6-56" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
-<span id="cb6-57"><a href="#cb6-57" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/about&quot;</span>,</span>
-<span id="cb6-58"><a href="#cb6-58" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentAbout&quot;</span>)</span>
-<span id="cb6-59"><a href="#cb6-59" tabindex="-1"></a>          ),</span>
-<span id="cb6-60"><a href="#cb6-60" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(<span class="at">path =</span> <span class="st">&quot;*&quot;</span>, <span class="at">element =</span> <span class="fu">div</span>(tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Error 404&quot;</span>)))</span>
-<span id="cb6-61"><a href="#cb6-61" tabindex="-1"></a>        )</span>
-<span id="cb6-62"><a href="#cb6-62" tabindex="-1"></a>      )</span>
-<span id="cb6-63"><a href="#cb6-63" tabindex="-1"></a>    )</span>
-<span id="cb6-64"><a href="#cb6-64" tabindex="-1"></a>  )</span>
-<span id="cb6-65"><a href="#cb6-65" tabindex="-1"></a>)</span>
-<span id="cb6-66"><a href="#cb6-66" tabindex="-1"></a></span>
-<span id="cb6-67"><a href="#cb6-67" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb6-68"><a href="#cb6-68" tabindex="-1"></a>  output<span class="sc">$</span>contentHome <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb6-69"><a href="#cb6-69" tabindex="-1"></a>    <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>)</span>
-<span id="cb6-70"><a href="#cb6-70" tabindex="-1"></a>  })</span>
-<span id="cb6-71"><a href="#cb6-71" tabindex="-1"></a>  output<span class="sc">$</span>contentAnalysis <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb6-72"><a href="#cb6-72" tabindex="-1"></a>    <span class="fu">p</span>(<span class="st">&quot;Content analysis&quot;</span>)</span>
-<span id="cb6-73"><a href="#cb6-73" tabindex="-1"></a>  })</span>
-<span id="cb6-74"><a href="#cb6-74" tabindex="-1"></a>  output<span class="sc">$</span>contentAbout <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb6-75"><a href="#cb6-75" tabindex="-1"></a>    <span class="fu">p</span>(<span class="st">&quot;Content about&quot;</span>)</span>
-<span id="cb6-76"><a href="#cb6-76" tabindex="-1"></a>  })</span>
-<span id="cb6-77"><a href="#cb6-77" tabindex="-1"></a>}</span>
-<span id="cb6-78"><a href="#cb6-78" tabindex="-1"></a></span>
-<span id="cb6-79"><a href="#cb6-79" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-</div>
-<div id="server-side-rendering-issue" class="section level3">
-<h3>Server side rendering issue</h3>
-<p>If some pages have the same HTML structure, shiny will not update the
-content rendered in the server when clicking on a new page.</p>
-<p>Here an minimal example of the issue:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">HashRouter</span>(</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkMain&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkOther&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(<span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentMain&quot;</span>))</span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    ),</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(<span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentOther&quot;</span>))</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    )</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  )</span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>)</span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>  output<span class="sc">$</span>contentMain <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>) } )</span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  output<span class="sc">$</span>contentOther <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;New content&quot;</span>) })</span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>}</span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  <span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>}</span></code></pre></div>
-<p>A simple workaround is to have a different HTML structure for each
-page.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">HashRouter</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkMain&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkOther&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(<span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentMain&quot;</span>))</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>    ),</span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>        <span class="co"># add title to have a different HTML structure</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>        <span class="fu">h1</span>(<span class="st">&quot;NOW VISIBLE&quot;</span>),</span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>        <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentOther&quot;</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>      )</span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>    )</span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>  )</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>)</span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>  output<span class="sc">$</span>contentMain <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>) } )</span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>  output<span class="sc">$</span>contentOther <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;New content&quot;</span>) })</span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>}</span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>  <span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>}</span></code></pre></div>
-<p>Another workaround is to reload the session when clicking on a page
-link using <code>NavLink.shinyInput()</code> instead of
-<code>NavLink()</code>. This is equivalent to clicking on the refresh
-button of your browser.</p>
-<p>This workaround has multiple downsides, in particular loose all
-current session objects when reloading the session.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">HashRouter</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkMain&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkOther&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(<span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentMain&quot;</span>))</span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    ),</span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>        <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;contentOther&quot;</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>      )</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>    )</span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>  )</span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>)</span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>  <span class="co"># Reload session when user clicks on new page to refresh output content.</span></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>  <span class="co"># It is equivalent to click on the refresh button in the browser.</span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>  <span class="fu">observeEvent</span>(<span class="fu">c</span>(input<span class="sc">$</span>linkMain, input<span class="sc">$</span>linkOther), {</span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">reload</span>()</span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>  })</span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>  output<span class="sc">$</span>contentMain <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>) } )</span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>  output<span class="sc">$</span>contentOther <span class="ot">&lt;-</span> <span class="fu">renderUI</span>( { <span class="fu">p</span>(<span class="st">&quot;New content&quot;</span>) })</span>
-<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>}</span>
-<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
-<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>  <span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>}</span></code></pre></div>
-<p>A third workaround is to render all the UI from the server.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">uiOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;main&quot;</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  output<span class="sc">$</span>main <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    <span class="fu">HashRouter</span>(</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>      <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkMain&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>      <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkOther&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>      <span class="fu">Routes</span>(</span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">p</span>(<span class="st">&quot;Content home&quot;</span>)</span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>        ),</span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>            <span class="fu">p</span>(<span class="st">&quot;New content&quot;</span>),</span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>            <span class="fu">p</span>(<span class="fu">print</span>(<span class="fu">JS</span>(<span class="st">&quot;location.reload()&quot;</span>)))</span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>          )</span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>        )</span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>      )</span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>    )</span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>  })</span>
-<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>}</span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
-<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>  <span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span>
-<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>}</span></code></pre></div>
-<p>More examples of this issue are given <a href="https://github.com/lgnbhl/reactRouter/issues/1">here</a>. Please
-contact me if you have a solution to this issue.</p>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(shinyMaterialUI)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">HashRouter</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">Box</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="at">sx =</span> <span class="fu">list</span>(<span class="at">flexGrow =</span> <span class="dv">1</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="fu">AppBar</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>      <span class="at">position =</span> <span class="st">&quot;static&quot;</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>      <span class="fu">Toolbar</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>        <span class="fu">Typography</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>          <span class="at">variant =</span> <span class="st">&quot;h6&quot;</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>          <span class="at">component =</span> <span class="st">&quot;div&quot;</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>          <span class="at">sx =</span> <span class="fu">list</span>(<span class="at">mr =</span> <span class="dv">1</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>          <span class="st">&quot;shinyMaterialUI&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>        ),</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>        <span class="fu">NavLink</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>          <span class="at">to =</span> <span class="st">&quot;/&quot;</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>          <span class="fu">Button</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;inherit&quot;</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>            <span class="st">&quot;Home&quot;</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a>          )</span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a>        ),</span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a>        <span class="fu">NavLink</span>(</span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>          <span class="at">to =</span> <span class="st">&quot;analysis&quot;</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a>          <span class="fu">Button</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;inherit&quot;</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>            <span class="st">&quot;Analysis&quot;</span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>          )</span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>        )</span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>      )</span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>    ),</span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>      <span class="fu">Box</span>(</span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">Box</span>(<span class="st">&quot;Home page&quot;</span>, <span class="at">sx =</span> <span class="fu">list</span>(<span class="at">p =</span> <span class="dv">1</span>))</span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a>          ),</span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;/analysis&quot;</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">Box</span>(<span class="st">&quot;Content analysis&quot;</span>, <span class="at">sx =</span> <span class="fu">list</span>(<span class="at">p =</span> <span class="dv">1</span>))</span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a>          ),</span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(<span class="at">path =</span> <span class="st">&quot;*&quot;</span>, <span class="at">element =</span> <span class="st">&quot;Error 404&quot;</span>)</span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a>        )</span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a>      )</span>
+<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>  )</span>
+<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" style="border:1px solid black;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3IAAAB2CAYAAACNrqFqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAACQ2SURBVHhe7d15fFX1nf/x17n7zSUbEEJC2FdZFIW6YBWso1Wx02qLHR2dqgx2gbqgA+PDWhd0Otgq1mqnFtTO6IyjXXTUqsUfLlXclyigbCJrIAkkIeHm5i7nnN8fd8m9JzchIEJS38/H4zySe873LPfcazxvvt/zOYZlWbZt2wCkf2b/nj0v32sRERERERE5dAzDyPs6e75hmqZNnuCW72e+oCciIiIiIiKfX05QM4wOAS77p2GaZoceOdu2sSwLIPPT2aYz+1suIiIiIiLyZebscXNyBjeXy5X5mVmWSCQyPXLpybKsnDDnDHEKayIiIiIiIoeeM8RlhznDMDI/jUQiYTsD3IibNuRsTERERERERI68TbeMTgY6Z4gzTdPZVkRERERERHoA0zSxbRsXqfvg0iFOQU5ERERERKRnSmc2V/p+t/SMeDzubCsiIiIiIiI9QDweTwY5y7IyPXKJRIJEIuFsKyIiIiIiIj1AOrO5SFWhNE0Ty7IU5ERERERERHqoRCKBZVm5PXKmaSrIiYiIiIiI9FCJRCI5tDI9I90jp2InIiIiIiIiPVM6t2WqVqZ/KsiJiIiIiIj0TDlBjtR9culJREREREREep50Zss8fkAhTkREREREpOfLPBA8m4ZWioiIiIiI9EzpvJYT5NQjJyIiIiIi0rNleuQU4ERERERERHqPDkMrRUREREREpGdTkBMREREREellFORERERERER6GQU5ERERERGRXkZBTkREREREpJdRkBMREREREellFORERERERER6GQU5ERERERGRXkZBTkREREREpJdRkBMREREREellFORERERERER6GQU5ERERERGRXkZBTkREREREpJdRkBMREREREellFORERERERER6GQU5ERERERGRXkZBTkREREREpJf5GwhyFTy/eBI1i4/igSnOZV052PUOoZmjqFk8KTO9cUGhs0VeV/9gYvt6PxnKBc4GvcgFlxyVfB9XVjgXHYRSHvhJ8rw8PzN3yY1Xps5Xt/aT/m503A5ThlJ9pL83IiIiIvKl9zcQ5P52DB1ezNecMzsYwKmDDefMQ6JyUCm3/WgUv1ZAERERERHp0RTkepK+Ib451jnT4fQ+HOtxzjwUBvLbeVVcPtSL37lIjqwWP3UrQtRtcDuXpLhpeT3Eztf9xJ2LMDCbfDS9XcCul0LsXBFi50sF1L0dYN8eF7azeWpfO1eEqF3b+RfN3hlIbmtFAS0t7fMj1al9dDF1/j6+KG72vZncd/2mzvadOocrCmis7eQfSlLvuWGnc0GSXRdg14oQO18O0GY5lyYlz0+AiHMBAAbR1QXJ49zg7vjZAGAQ35CvjYv41gC7VxYkj2FFiJ0vF1Bf7Scadb4fLw0rQuys9jrmg93qpaW6gNqX2z+vXSuDNO3o7HhERETkSPkSB7mdnLVwFZULP2H2e85lh1uU9bUAPo4/puvhlVePLsCPzfbGhHPR52TgOQLfhscf/oTKhauovKeTq2P5HFy0rQ5S956XSJuNvypO8bg4RVUWrqibluogdR/5MDsJHVadh5hzJgAGbbWdBSIAG2+ZSaCzqegwR4KIh0gYDA8kdnT2ntIM2tb6iRzwf14G0Vo3tsfGMN2Ea5zhqTts/OOjhIKQ2OZnX3PHbdjNPpq2GVCYoO9ok2QLF5HqALs3uEkkyJx7XwDMPR4aXg/SkmdbTnazn91v+tjXYGAUWMnPqq+FK+4isjZA3UdeOvmqiIiIyBFwBC7dpSOLtzZHARhaVcRk5+K0knJOG2xAopU3djgXiuSKfxqgsdbAMyjGgK9GKB0do2BQjNDoNvqfEqHvIBur3svu9Z4OvS3uoA1xF5FGxwIAy0OkAVw+51ppFqGj2yjtZCoqP7xxILbVTQKLPkMtiHkI1+0n1CTc7F3r7XBOupTwEq4HV3mCoA9i232Yzjbd4TIpnJjAg8G+D/3Esk+V5aH5Qw8Jt0nJ5CiZKL3XS/MeA6NfjAHTW+mXOs/9TmylfGoCt2Wwb+P+QphBZKOHBDZ9prYy4PhI8vM6NsKAUyMU9wWr3kvLXud6IiIicqT0wCDn5/xzhvKX6yfw2c9SBSp+NpF114/igXNKGOVsnsPP+ecM46UbJ7Bl8SRqFk/ks1vG8ZcLy5he4mzbSbGTdAGSKyugrITbrhjLR4tSxUVSx3HfaX2ozFpl8vljkstvH8m1HfaTMmEwby+eRM3isfwyz/DJfW+HWQ9QHuLCKufSpMqv9OFoD0S37WOlc2GO5Dl8esFRrLu9vTDKttsn8NGCEdx2bO7gyWTBkf4cDYCHsy9Itq++pDSnXYfzkT6/lwzk/LLcppB7Lk+cPpSXbk6ut2XROJ79++SJ6rLYSVkJP7lkJK/fmPVdWDyRz245itevqMy/T0lK+Gjekuq5GRfH3eG/dAv/uCiFhWDVeAk7x/r1N/EbBm21HYdXWjUeopgUlDuX9EQeIrUGFFoEq0x8BrRt7yLUBE1CfcGu9bJ3934CXxZrp5uYDf7+MYIDbAi72XeQoccoilEy2IaYm4bV6WM1iKz20RqzCYyLEvRlrdBqYAG+8niHP+hGcYxQCdDs2k9PpAuzDQjk6TF1WRQMM3FhEG/sqidWREREDifn//ePMC8XXTKcX04vYlKJC1fCpDli0mJBYUmQs6cP5vkrKzjRuRoABseeOYpfTi9kbBAiEZOWBPgDXiZNHsgD/9TZep3wh3hmXhWXj/RRjEVzxCKKQWFJkPPOGsqDM0OZptVv72OtBXiCnPqVjvedAJx1dIgqwNzVwkPrnEuB7Q28VQvg54Tjg86lgJcLRwXxY/PBhjrnwnYlfbn/+tHcO72IKf08BCyL5ohJc5sNHhf9+4W4/B9G8cxZ7fuIxUyaI1bq/iqbaFvqvMfaL+gqjx/CO9cM5vKRPvr7oDVi0hyxcQW8TJpYxi/njeTG4ZnmuYqK+fVZRYz12TRHLPC5aQuHna1ypPf3o4kFDOtjYEZTx5QAf8DDsJH9uPfKkVzfSej9sksHC19FrL3npgOT0GATbBdttY4/BUaCgrJ8wysN2upc0Nck0P2cc8TYdR4icfAOiOP2xCnoCzR6aHUG1wyb4IQ4frdBZI2faKeJL5ub1h0ucJsE+4Ov0sSNQWTrAfbqZdh4RydDtl3vZW+tgVXrZ2+9gXtwlJJyx1ZLbDxAbKePRIduQJvQlDAVM9oIOBflsPAWAm1uWvPdO1naRvnpYfoP67ADEREROUJ6VpCbUsmCiV7cVpzlT6xn6I0fM+7mjxl7wzoufC1CK1AwqJS5JzlXBHAzsAS2rt7FhXesSa23gXnvRYmm1rvqq851utA/yHGuGE88vZGTbvyYcTevYfhdNTzVYAMujp5axqXpttvr+fNWGzA47qj+Ob11SaXMGukFbNasr6fauRiACI+mhleOGda34/DKkr6cWmVAW5jnVjgXtjvr7AF8o8SAWBuP/m/7ORx302pOeGAXr+xNHv9xx/TLVMh88rH1jLu5gU8AMHnxqeQ6pzzWlGwwvIIHv1HMIDe07mrkmnvWMerm5Dk56Z6dPLHbwh0o4IoLh3JRvh7JQi+l9Y18/441jLt5DUN/sZEFKzqW5WhXxA1fa9/fvF+sTu0v9V14fh+7LMBXwN9P6/qewr8l5tZ0gRHnFGCfI5iYEQOw8ZV0uCTPYfSxcQPx5o5xz19uYjiHVya8RJrAX97VTWRumjocY3rKLY7yxTJoq3FjYxGssgCbQLmZ7N3a2fH9ZvhilIyxMBJuGj/uRhhr8dAaBtfARLJQUGGCYBDsPe5uBsF8TPpMTgbKtrVBdq91YxckKB2Vvi8uSzBGyUgLGr3Uvxxi15tBmjb4iDS4sbq9f5vA2BhBn0FrdZBdLxew+wM/+3Z4icc67FFERER6gJ4V5AZ6GQAQjvDsm8lQkxTnlad38Mdam2gbDBuSLy1AdPNuZj1czyup/AFR/vR4PS+2ALgZOzT/evnZvPPXz5j7WoSa9Kz6PfzgpRZ2AxQEOCmTtuI8ujFCFHBX9GGus5fopGJOKgQSEV5Y2XmAqe5ieGXlyYUc54HmrS0szV2UpYivV7hoSdhs/7iWaz/IPodQs76ea1el5pX4OSFnaecunVHK0T6gpZmfPrSdx3a0v4eaHbuZu7SWV1rBXVzIP0/P15uY4MVXtvN0+nOpj7LR0SLHxCImBCyiVpy/LN/On+qzF8Z55aXtPL0r+aqqrL1n9G9dpgBFh8nC48glidZuXnwXWniAfGMNjf5mMkhkDa+0drmJuUwKnL1CObouduLJ32l96CW8tDYApSbB1Fswyk0C7v0XPXFVRinq5hDLWI0bE5tARTrcmhQMtOGgi56k+GKUjDUxEgamaVE4OYo3719sG++wCOXTohRVWbhjLiJbvTR9EKD25RD1q/L11OXhi1MyrZX+ExIECiDR5KFlrY/drxaw69UgLfl66kREROSIyXtZcMTsNWkGKOzDVZcN5JJh2fdyRVh412qG35TVU5TDZs1nte2hK6ORzc3J31yuA7iosiK8+UKe0PV2LLUPI+fiueaFJl5rBVx+TpqSG2bmjC+gBGjetJc78x16WqfDK73MHhnAjck7H+/Omu/UzDV3fczYG1Zz/KOpN+1QUxOjDsBlJC/g96uUUwYl3+iW9Q38T77jb9rNi9uTPR2jq4qdS8GKsfFAKoOu3s6Mm9cw/Pq1zF3jXAgQZ01D8qLZ7T6Az7SXc/WPdSgckpxiBLLvmQLcgW5ecoddyaIc+f4SuBIE+2UPrzSI1Low+pn487XP6KrYSZRg12P8Dhlzqyc5vHRA1r1jqfe0/6InFgXdGWJpeQnvNMBnEsz66rsrzORwx4MtepLiqjDxAfRN0Cffv5FkMYIJQmMjlJ0apmJGhLJj4/Tpa2PWeal/20+8s/eQzWXjHRil9PhWBp7WSvlXo5SOMPHYLvZVB2jc2eUHLyIiIodRz/q/8mt7eHZ3cujf8HFlLP7hGLbdPp7XrxrGfaf35fgui1uY1Ob03HxO4QSfOud1aQ8rtibDzLiR2UMjB3D2CDfsN4SRHF75aRumc3hlSX9OrjCgtZUVb+Su0TU/x48r5LxTBrLo20P5w1VjWXN+YbLXs9sCDEqNXqycNJi1N4/PO103IvlVcpf6uSB3AwdxLh3KQvzduBK+f3Ylv7hkBMsXjGfx+O7F0C8rTyg51DfW1FVYAbvZIAF4i/LFDTt3eGXCS1tqWGXXW+0J3ERSQS22LvnctfTQzsbULaZdFj2he0Ms7d1uomYyGO7JHkL6uocEfK6iJ5+L28LTN0bh5Aj9h9nQ6mHfAf99tHH5EwSGt9H/5BgBt0F0szf5vkREROSI61lBjmbmL93Mz6oj1CaSl01uj5thlYWcd+Ygnpw/kQ9+VME3DmSE5GH0u7db2A5Q3ofLUpUpK88oTD7Au7GF/+5GCKt+L8wGK3d4ZeXJISa4oGlrC79zrtCBl+mnDeYvN0xk2+IxPHnZMO47t4zZxxcxrdJHkcFB9xB4fW6KgvmnQs8hvrQv6cOPLxzFB7dPpOa6EfzXZYO5aUY/LpoYYmI/Fy4732W1pLkqkhUaY9t8eR4Snuaitcaduncsf6TJDK+s8yQLqLhNgv17wbnf6yEcBgpNiscln5/XPiXw+/ZX9CQpZ4jlHud33CCy3Y2NjX+Ecx9xigdZyTYHXfSkO1IPO/9roJOhojaeQgsDsPN/xEmph5nv2eZ8jyluC28AsPkC34uIiIgciB4W5ICmffzq0Y0ce8M6zlq2g59Xt7B6j5kc2uQyKB/anyX/OLBjMZCeYE0TbzQA+DjpuKLkkMijgviB7Vv28ryzfT7bG3mjzs4aXhlk7pjksMr31u5xtnbwctElI3nkrBImFRmQsNi9J8J7m5r5n5W1LFy2kROebCHfo8H2z+SVp1clH97d1XTbFh53rnqgSvrywI+Gcf3kIOUeiLYl2FzTyuurG3hg+Q7+4Z51XL/uwOLornCqfR8v33IudJriYyAAJo1HojflUPDEKBpqQ8RD42pvnod+u4iuDdDcBK5BMUKdDdvLGl7ZXOfC6G8S6Hl/NTqI7XRjAYFhUQoGJZ+f1z5FKR6U7LEMb91fz27WEEtnZc+EN9lTGTIpHu7cR4yCMQkCbrDrPQfxgPHuMvGV2hBPPvuuw+dsuQlvS4ZNX1f/ANbXwmtAbFOA8L6OYc5q8NIaBiN9T6WIiIgccT34kizORxsaWPLoZs6842OGL/6Mn21MXg0VVIU429m8R2jhobXJoZFVQ4s5Kz0k0mrjhVfz37PWUYTfb4q2D6+sKuWkAQa0hHl6fz16Y8v58UQvbmx2fVzDaTes4eg7NvKN+7dw3VN1PLwhQk2Zl/7O9boUp7ENwM3IwUXOhV+Ir51ZxtnFBlhxlj+xgeE3fcK0X37Kdx7ewY0rGvjrjjgjiw/scvKdxtSVdKGfrziL0ThMHupPDT9NsHWzc2nv4R3ZRmm5jVnro+61II0bfLTu8BHeEGD3q0Eadhi4yuL0H9PVUMnU8MqYm0gTBAZ23r/XzkX4owCNnU3rvAfdK9wtlpfwLgN8CUID8vcfuYck8Blg7fTQ5gw/Tukhlo7Z5tbkvYO+qk4e8eCKE6qwwXYR3prdovPzsy/fPaj74RsdpU8BJHb4qHulgPr3Utt7r4BdryTDumdItPOwTjL4lx5lYiRcNL9VwK7XgjR8FKDxoyC7XwtR+4Eb02NSPDbe4TyIiIjIkdGjgtzcy49i7S0T+XhOWccS/k37+NUnbcliKN0u1HH4Vb+yjzUWUFrAN85MDok068L8fruzZeeyh1fOmRZitAvqtjTvv6drqD913kw+WL0nT2XIELeMOtBKE7t5bUfySrdqTD/m5P1X/RCL509k2+0TWPPDgYxzLj5AU/qnyhp2qF6aMryCUw/wYdSZZ/25Asw8vW/H71daSV+uHp8ssmPu2sejB/C59TwWgYkRBkyJEwwYRLd72bvWS/N2F5bfpGhKhAFHx/I8LDxXcnglmeek7Z9BvN5NW2fTHlfX96Z9TlaNhzYTPIMSyUIh+XjihMoA001kP1UpSQ2xLMz57nvYt8MAt0moMn9YBPANSRY9SdR5ssJr5+cntp+hnnm5TApPiNB3uInXB+be1Pb2GhhBK3mf3Og8jy1wcFW0UX5CnIISG8N0Ea1301bvImHaeAfGKftqW+6DyEVEROSI2s8l3OG1ck+CUMCgZER/7j2niFHZC8v68btTQxQB5q5Wns5e1pM07eaFrTbg45xjArixeX91Z8+O60RmeKWPcyf7cRNn5fvdGBC5JZqqqOnm2In9cs5f5aBSbps7hMsrO7ucS/e8eRhSmVsf/r4XmlhvAQV9+MkPh/HjMVnLy4qYP3swF5UbuD02H63aw9rslQ/Ce7tTvT6hIOecmF251MvRUyt55pJ+TDjQJL+9nkc3Ji+lB4yvZPnVg5k/OZQ5R5WD+nDeKVU8/eNKziwk2Ru48gA/ty9KYZQBp4cZMLqzfiyTwmlhKqZF6VjZ38ZdEqPk+FYGnham4vQwFae1MuD4NkIlHXuZ8u7LFad0RvKh0jmfxuhWKk5vpTDrUX7Byal9dDXlPc5Dx1UVoeL0MGUjOjtfJO8LnJQ8ntIB9n7OIclKnFOS7ftWACQoPiX1oO2u/ooGo5SdHqbixCjubpyf5Lazxel7epiKyfvpCXVZ+Ee00f/kVgZ+LbW9r4UpPzFCn37Oz7nzbRp9YhRPaaV8evsxDZzeSv8JsQ6PuBAREZEjq6tLkMOu+v9q+O0OC1weTpw+lL/+24RUVcQJbLmukjOLDcy2Vn77ZE3PuMDOK86dq8I0A36PAYlWXsr3GIMupYdXGnjdBjSGeTpvGX6HdXt4amuywMLA8ZXt5++Wibx1ZRWXD3HTsCXCNgA8VOXcaBhmU1OyZ2HCtLGsu3k8r3431QXx2Q7+9fkWdpjgLSnk+tlj+eyW5Ofy2fyhXDfGixuLz97bxbWvHeh77ejF1/fyfgxweTnzvDFsWZSsjLnu9rE8P6sfxwVM3tuRKu3QnXveAIiz9I9bWbrVwsSgb0UJ1104gr8unkTN4km8e+Vw7ju3lCl9DDATrHxxG7Pf/vzvRURERETki9CjghyEWXTPRuatbGF9k0krrlRVRAOrLc6q1fVcde+nLPrMuV4P81oz77Qmf23auJe7ncu7ITO88kAKpRDhZ/dtZN7KMJtbbUx38vyFPDa1O5r59f9u4Jhf1/FuI4CXY4/Kvuctwg1P1rOyySLuMigMuhlZ3n5TzZuvbOabv6vh0U9j7G4DT8BNUdCFx7Ko2dHMr/93Iyc/3pDnOX4HYfsuzr1nGw9+GqMxYaeqZbrwJRKsWl3PvCWf8I0VrckKocUFnDHBuYFONO3jpvvWM/P3e3ixNk5zm5013M2mNZL8js1b8gmzXgjnrCoiIiIi0pMY4XDYjsfjxGIxIpEI4XCY03/3hZVY+5Lox8M3VXJ6QYLnHv+E2QfyMGwREREREZFOrLjUQygU6mk9cn8bKs8o4asFQOM+fq8QJyIiIiIih5iC3CEyqixZBmLU+AHc+ZUgfmw+WrW7m0MiRUREREREuk9B7hA599ujqVk8ib9+r5zpxQZmQxN3//lgaomLiIiIiIh0TUHuENncGCdqAZZNY20TP3lwu3rjRERERETkC6FiJyIiIiIiIr2Eip2IiIiIiIj0UgpyIiIiIiIivYyCnIiIiIiISC+jICciIiIiItLLKMiJiIiIiIj0MgpyIiIiIiIivYyCnIiIiIiISC+jICciIiIiItLLKMiJiIiIiIj0MgpyIiIiIiIivYyCnIiIiIiISC+jICciIiIiItLLKMiJiIiIiIj0MgpyIiIiIiIivYyCnIiIiIiISC/jAjAMwzlfREREREREeij1yImIiIiIiPQyHYKceudERERERER6pnRec6V/MQxDIU5ERERERKSHMwyjY4+ciIiIiIiI9Gw5xU4Mw8DlUrYTERERERHpiVwuV26PXHaYExERERERkZ4n5x45hTgREREREZHeoUOPnIZWioiIiIiI9FyZoZXpAJcOcQpyIiIiIiIiPVM6sxltbW12IpEgHo8Ti8WIRqNEIhHa2tqIRCLEYjESiQSJRALLsrAsK7MR27ZzNioiIiIiIiIHLvs2t3RY83g8eDwefD4fwWCQQCBAMBjE7/cng5xlWSQSiUyQa2trIxqNEo1GM0HONM2cIKcQJyIiIiIicuhkCpmkgpzb7c4EOb/fj9/vJxAIJINcLBazTdMk3SsXj8czAS4WixGPx3N649IBTkFORERERETk0MkuQpndK+f1evH5fJlA5/V6k0HOsiyyw1x2gEv3xtm2jWmaoBAnIiIiIiLyhUiHObfbjWEYmV657EDn9XoxEolEJsilw1w60KXnOUNcd4Jcd9qIiIiIiIh8WXTncW/pQpQ4wpzb7cbr9WZCnZFIJGzbtskOc+kpPZwyPaTSGc6cr0VEREREROTAOUOe88kC6Xvm0pNhmqadDmnpMJf9u7NKpcKbiIiIiIjIFye7V45U8RO32515hpzb7cawLCsT5LIDXXYvnDO8OV+LiIiIiIjI59dZz1x275xhGO1BLs1ZmTL79zQFORERERERkUMvO8ilf8/uoUsHOsOyrEwqyxfgnDqbLyIiIiIiIp+fs1cuLSfQ2Uk5Dfb3WkRERERERL54zlCXE+TSM/MFtnzzRERERERE5PBwhjmcQS5bJ7NFRERERETkCMi5f66zIOfUzWYiIiIiIiJyCOTriUvrdpATERERERGRnsHlnHFgHuFcw8A49xHngoxHzjUwjHPpvIWIiIiIiIgciM8Z5ERERERERORwU5ATERERERHpZY5IkIttf45bz5lAsT/5QDt/8QTOufUF6jItPmThSAPj3AdZ9+AsxoQ8yXYVM1j4Qh20vsGtM6oIeQwMT4gxsx5kXSxnBzy3cAZVqfU8oSqmXupo00G+fXoIVc1g4XPbyVk1to4HL53K8GJ/6qF8HkL9JjDrwXW57epe4NZzxiSP0/BTMWMhL7ywkJGGQc5o1NbV/HZWV+dDRERERESk3eEPcnWPcP7Ec7hpeTPHX30XS5feyoXDall+05mMOfeR3PDy2nxO+OF7jJr3c5be+j1GR17hjvPO4oTjZnBP/Fvc9pu7WHBaXzb9YTanzX89tdKH3DJlJOfcuZp+s25i6dKl3DSrH5sfmc2EoxfybpdhLrXPK16i7LKfs/Sua5lmvMYd50zku481phrUce/fTWD2I5spOu8nLF26lLsWfIvh5sf8YfYJXPZMagexd1l46tnctLyBURffytK7rubYrXdz9qz7qc3eX+NjzBoyme8/FeHkq+9i6dK7uPrkCCvynQ8RERERERGSjxX4HB62Z4LNfqeZ9sO2bdt21P7TBSEbRtjXvBPN2k7YXn5ZhQ0V9tyVtm3b1faCEXRo1/CrU2zADp35gF2bmfuSfUUZNmNvsNfYtt3wHzNsNxX2ZcvDmRa2bdvRl66wK3DbM/6jIWd+u/Q+i+2ZD7dv3Y6+ZF9RgU3FXHulbdv2hsX2qUU+e8SC6qx1bdteOdeugMz8jbdMyrOtd+wFY902YM9MnhB75dwKG/cp9p3bss+Hbdf+6hTbnTkfIiIiIiIi7Q5Nj1zFVM4///y809SK7IbL+cOfw3DKNdw41Zc1v4AzbvgBk9jJ4//5cvvsod/koqx2pSVFAJz83YsZkJk7jROOBeJx4sR44omXMYPDKNzyPyxbtiwz/ddGk/6YvPzMnzNr5jXi+9x+cfvW8c3gR5eMgJ3/j2c/BkYt4JW9UT5dfEz2WjDtRI4DWpoaga08/uQqKPsu1+VsayqLFpyetdK7/OGZnTB4ANbz/5VzvE/tLqAvO3nu/z7Mai8iIiIiInKohlYedxV//OMf805XHZfdsIm9YSg7aiKl2bMBRo5gCFC/Y3v7PLcXb3abFK8vOwT68GUafcK6jUDkDe6ZM4c5OdMDrALYuJaPs9bu4KhJOCIax0w6ClhH9ftZM1vr2fLWUyxbtoi5357OhOLZ/Dlz/HXUNwDHnsC0rFUAfFMmMyLzai3rtwCb/8i/OI/3lr9QD2xZvzZnfRERERERkUMT5HqaEQuotm3sfNPa2xjvbN8tbrxegDqeuHQE/tAAhp34TX5w1d384f0wgy8+g0mZtvsIt2avux8zH+54nKkp8cR3na1FRERERORL7jAHuRKKQ1D/yWrSpUMyPt3EVmDomHHOJQdgCIMHAZve4NUOO+immm1sdcz6cNUnwNEcfxLEnvgxl/znZ1Rd9iSbwjaJ8B5qP3uX5287i5LMGiMYVgV88BbpEixpsVVr2JJ5VcWgMuDtV8kaUCoiIiIiItKlwxzkzuQ7M0Pw6hIW5ZSPbOWF23/DKoqZ8fWpWfMPVCn/eNEM3LzKkkXv5jwKIPbufEYafqqufDFrbh4fLOPu7GNrfYJ/u38TTPoWFwyBT958lzBD+eaPvsnwgnSjGNsfejwrtA3hgm9NgvrH+MUj2XUn6/jtb5/HzLyewfcuqID6/+ZnD+bWp6x78Ov08YT4u1/vypkvIiIiIiJymIOcj/N+9RtmFm9iyYkjOWPhEpYtW8Slxwzh7Id2UjzzXu74unOdA1N6+c+5dqybTUtOpPLkeSxZtoxFc6cz7uQlbCo+g3//ydecqzhsYsnJ4zhn4RKWLZnHyUNm8fi+sSx48F8ZCRx1yokUs4V7zjqZeUuWJY9/6lBGLngLt7t9KyP/9R7mDtnHny8dzzGXLmLZskXMGjGYqx1ddNN+egczi8Msnz2YEbMWsWzZEhZ+5xjGX7GctlHz+Pd/Hpi7goiIiIiIfOkd5iAHDLiYP61+llvOLOLtu+czZ85PeXRzOefd+Qbrn8muRnmQfFNZ/NEaHvjeZALVv2H+nDn8dFk19kkLeHb1n8guIpnXiGt44OYhfHTvvzBn/lJWl5/H/dXvszhVPdN37kO89cB3GBt/l/vmz2HO3F/wSp9v81B1NTcfDbz/ZrJnzjeDe995jgVfDbDxkZ8yZ85tvDbkap6746zc/Q24mGfWL+eWs0ex56mfMmfOfO58bjvl591P9fuLySnuKSIiIiIiAhi2bdvOmV9OH7Jw5GTuYAHVny7uULnyUIk9+HX8s9dxzTubuevzjCIVEREREZEvrcPfI/cl8cw/lhDqdxGPZd+oRx2PPLYS3BM57ujs+SIiIiIiIt2nIPcFOfPCmXgbHuWfxp3DwvS9dMeM54rlbYy99mYu0JBJERERERE5SApyXxDfuQ+x+tkFnGSv5O75c5gz5xZ+v2cYF99fzfuLp6IcJyIiIiIiB0v3yImIiIiIiPQy6pETERERERHpZf4/b/oA7SZvrnUAAAAASUVORK5CYII=" align="center" /></p>
+<p>Find more examples with <strong>shinyMaterialUI</strong> <a href="https://felixluginbuhl.com/shinyMaterialUI/">here</a>.</p>
 </div>
 <div id="usage-with-shiny-modules" class="section level3">
 <h3>Usage with Shiny modules</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># adapted from example of shiny.router</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># https://github.com/Appsilon/shiny.router/tree/main/examples/shiny_modules</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co"># This creates UI for each page.</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="cf">function</span>(title, content, id) {</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="fu">div</span>(</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>    <span class="fu">titlePanel</span>(title),</span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>    <span class="fu">p</span>(content),</span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="fu">ns</span>(<span class="st">&quot;click_me&quot;</span>))</span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  )</span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>}</span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co"># Both sample pages.</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>root_page <span class="ot">&lt;-</span> <span class="fu">page</span>(<span class="st">&quot;Home page&quot;</span>, <span class="st">&quot;Home page clicks&quot;</span>, <span class="st">&quot;root&quot;</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>second_page <span class="ot">&lt;-</span> <span class="fu">page</span>(<span class="st">&quot;Second page&quot;</span>, <span class="st">&quot;2nd page clicks&quot;</span>, <span class="st">&quot;second&quot;</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>server_module <span class="ot">&lt;-</span> <span class="cf">function</span>(id, clicks, <span class="at">power =</span> <span class="dv">1</span>) {</span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a>    output<span class="sc">$</span>click_me <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">clicks</span>())<span class="sc">^</span>power</span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a>    })</span>
-<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a>  })</span>
-<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a>}</span>
-<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co"># Create output for our router in main UI of Shiny app.</span></span>
-<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a>ui <span class="ot">&lt;-</span> reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
-<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkMain&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
-<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a>  <span class="fu">NavLink.shinyInput</span>(<span class="at">inputId =</span> <span class="st">&quot;linkOther&quot;</span>, <span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
-<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;clicks&quot;</span>, <span class="st">&quot;Click me!&quot;</span>),</span>
-<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
-<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
-<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a>        root_page</span>
-<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a>      )</span>
-<span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a>    ),</span>
-<span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
-<span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
-<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
-<span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a>        second_page</span>
-<span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a>      )</span>
-<span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a>    )</span>
-<span id="cb11-46"><a href="#cb11-46" tabindex="-1"></a>  )</span>
-<span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a>)</span>
-<span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a></span>
-<span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co"># Plug router into Shiny server.</span></span>
-<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a>  <span class="co"># reload the session to make the modules work</span></span>
-<span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a>  <span class="co"># Not desired behavior as clicks object lost</span></span>
-<span id="cb11-53"><a href="#cb11-53" tabindex="-1"></a>  <span class="fu">observeEvent</span>(<span class="fu">c</span>(input<span class="sc">$</span>linkMain, input<span class="sc">$</span>linkOther), {</span>
-<span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a>    session<span class="sc">$</span><span class="fu">reload</span>()</span>
-<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a>  })</span>
-<span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a>  clicks <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a>    input<span class="sc">$</span>clicks</span>
-<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a>  })</span>
-<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a>  <span class="fu">server_module</span>(<span class="st">&quot;root&quot;</span>, <span class="at">clicks =</span> clicks, <span class="at">power =</span> <span class="dv">1</span>)</span>
-<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a>  <span class="fu">server_module</span>(<span class="st">&quot;second&quot;</span>, <span class="at">clicks =</span> clicks, <span class="at">power =</span> <span class="dv">2</span>)</span>
-<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a>}</span>
-<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co"># Run server in a standard way.</span></span>
-<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># adapted from example of shiny.router</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># https://github.com/Appsilon/shiny.router/tree/main/examples/shiny_modules</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co"># This creates UI for each page.</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="cf">function</span>(title, content, id) {</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="fu">div</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    <span class="fu">titlePanel</span>(title),</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    <span class="fu">p</span>(content),</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="fu">ns</span>(<span class="st">&quot;click_me&quot;</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  )</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>}</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co"># Both sample pages.</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>root_page <span class="ot">&lt;-</span> <span class="fu">page</span>(<span class="st">&quot;Home page&quot;</span>, <span class="st">&quot;Home page clicks&quot;</span>, <span class="st">&quot;root&quot;</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>second_page <span class="ot">&lt;-</span> <span class="fu">page</span>(<span class="st">&quot;Other page&quot;</span>, <span class="st">&quot;Other page clicks&quot;</span>, <span class="st">&quot;second&quot;</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>server_module <span class="ot">&lt;-</span> <span class="cf">function</span>(id, clicks, <span class="at">power =</span> <span class="dv">1</span>) {</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>    output<span class="sc">$</span>click_me <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>      <span class="fu">as.numeric</span>(<span class="fu">clicks</span>())<span class="sc">^</span>power</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>    })</span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  })</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>}</span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co"># Create output for our router in main UI of Shiny app.</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a>ui <span class="ot">&lt;-</span> reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>  <span class="fu">NavLink</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Main&quot;</span>), <span class="fu">br</span>(),</span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>  <span class="fu">NavLink</span>(<span class="at">to =</span> <span class="st">&quot;/other&quot;</span>, <span class="st">&quot;Other&quot;</span>),</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;clicks&quot;</span>, <span class="st">&quot;Click me!&quot;</span>),</span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a>  <span class="fu">Routes</span>(</span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/&quot;</span>, </span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a>        root_page</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a>      )</span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a>    ),</span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a>    <span class="fu">Route</span>(</span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a>      <span class="at">path =</span> <span class="st">&quot;/other&quot;</span>, </span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a>      <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a>        second_page</span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a>      )</span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a>    )</span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a>  )</span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a>)</span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co"># Plug router into Shiny server.</span></span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a>  clicks <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a>    input<span class="sc">$</span>clicks</span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a>  })</span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a>  <span class="fu">server_module</span>(<span class="st">&quot;root&quot;</span>, <span class="at">clicks =</span> clicks, <span class="at">power =</span> <span class="dv">1</span>)</span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a>  <span class="fu">server_module</span>(<span class="st">&quot;second&quot;</span>, <span class="at">clicks =</span> clicks, <span class="at">power =</span> <span class="dv">2</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a>}</span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co"># Run server in a standard way.</span></span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+</div>
+<div id="example-with-quarto" class="section level3">
+<h3>Example with Quarto</h3>
+<p>As React Router provides client routing, you can easily create
+multiple routes in a Quarto or R markdown documents:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># code to run in a Quarto document</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co"># example adapted from: https://github.com/remix-run/react-router/tree/dev/examples/basic</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>Layout <span class="ot">&lt;-</span> <span class="fu">div</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="co"># A &quot;layout route&quot; is a good place to put markup you want to</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="co"># share across all the pages on your site, like navigation.</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">nav</span>(</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Home&quot;</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>      ),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/dashboard&quot;</span>, <span class="st">&quot;Dashboard&quot;</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>      ),</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>      tags<span class="sc">$</span><span class="fu">li</span>(</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>        reactRouter<span class="sc">::</span><span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/nothing-here&quot;</span>, <span class="st">&quot;Nothing Here&quot;</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>      )</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>    )</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>  ),</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">hr</span>(),</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>  <span class="co"># An &lt;Outlet&gt; renders whatever child route is currently active,</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>  <span class="co"># so you can think about this &lt;Outlet&gt; as a placeholder for</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>  <span class="co"># the child routes we defined above.</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>  reactRouter<span class="sc">::</span><span class="fu">Outlet</span>()</span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>)</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>reactRouter<span class="sc">::</span><span class="fu">HashRouter</span>(</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>  <span class="fu">div</span>(</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>    <span class="at">style =</span> <span class="st">&quot;border:1px solid black;&quot;</span>, <span class="co"># add border just for the example</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>    <span class="fu">h1</span>(<span class="st">&quot;Basic Example&quot;</span>),</span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">p</span>(</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&#39;This example demonstrates some of the core features of React Router</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="st">          including nested reactRouter::Route(), reactRouter::Outlet(), </span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="st">          reactRouter::Link(), and using a &quot;*&quot; route (aka &quot;splat route&quot;) </span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="st">          to render a &quot;not found&quot; page when someone visits an unrecognized URL.&#39;</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a>      )</span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a>    ),</span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a>    reactRouter<span class="sc">::</span><span class="fu">Routes</span>(</span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a>      <span class="fu">Route</span>(</span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a>        <span class="at">element =</span> Layout,</span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a>          <span class="at">index =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Home&quot;</span>),</span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Home content&quot;</span>)</span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a>          )</span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a>        ),</span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;dashboard&quot;</span>,</span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Dashboard&quot;</span>),</span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(<span class="st">&quot;Dashboard here&quot;</span>)</span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a>          )</span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a>        ),</span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a>        <span class="co"># Using path=&quot;*&quot;&quot; means &quot;match anything&quot;, so this route</span></span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a>        <span class="co"># acts like a catch-all for URLs that we don&#39;t have explicit</span></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a>        <span class="co"># routes for.</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a>        <span class="fu">Route</span>(</span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">&quot;*&quot;</span>,</span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a>          <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">h2</span>(<span class="st">&quot;Nothing to see here!&quot;</span>),</span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">p</span>(</span>
+<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a>              <span class="fu">Link</span>(<span class="at">to =</span> <span class="st">&quot;/&quot;</span>, <span class="st">&quot;Go to the home page&quot;</span>)</span>
+<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a>            )</span>
+<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a>          )</span>
+<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a>        )</span>
+<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a>      )</span>
+<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a>    )</span>
+<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a>  )</span>
+<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a>)</span></code></pre></div>
+<div class="react-container" data-react-id="pdozqfrbokxlhtsqyhoq">
+<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"element","name":"div","props":{"type":"object","value":{"style":{"type":"raw","value":"border:1px solid black;"},"children":{"type":"array","value":[{"type":"element","name":"h1","props":{"type":"raw","value":{"children":"Basic Example"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"This example demonstrates some of the core features of React Router\n          including nested reactRouter::Route(), reactRouter::Outlet(), \n          reactRouter::Link(), and using a \"*\" route (aka \"splat route\") \n          to render a \"not found\" page when someone visits an unrecognized URL."}}},{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"key":{"type":"raw","value":"3450d950-81dd-486f-b5b3-3f48fa10dd55"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"nav","props":{"type":"object","value":{"children":{"type":"element","name":"ul","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/","reloadDocument":true,"children":"Home"}}}}}},{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/dashboard","reloadDocument":true,"children":"Dashboard"}}}}}},{"type":"element","name":"li","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/nothing-here","reloadDocument":true,"children":"Nothing Here"}}}}}}]}}}}}}},{"type":"element","name":"hr","props":{"type":"raw","value":[]}},{"type":"element","module":"react-router-dom","name":"Outlet","props":{"type":"raw","value":[]}}]}}}}}}},"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"index":{"type":"raw","value":true},"element":{"type":"element","name":"div","props":{"type":"object","value":{"key":{"type":"raw","value":"f82e1515-56f6-4a34-8a2b-a9db39200cf5"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Home"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Home content"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"dashboard"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"key":{"type":"raw","value":"76702574-0ab5-46ec-ba8c-60d1f045cde3"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Dashboard"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Dashboard here"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"*"},"element":{"type":"element","name":"div","props":{"type":"object","value":{"key":{"type":"raw","value":"097c7026-22e1-420b-aa35-f347594545ff"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h2","props":{"type":"raw","value":{"children":"Nothing to see here!"}}},{"type":"element","name":"p","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Link","props":{"type":"raw","value":{"to":"/","reloadDocument":true,"children":"Go to the home page"}}}}}}]}}}}}}}}}}]}}}}}}}]}}}}}}}</script>
+<script>jsmodule['@/shiny.react'].findAndRenderReactData('pdozqfrbokxlhtsqyhoq')</script>
+</div>
+</div>
+<div id="dynamic-segments" class="section level3">
+<h3>Dynamic segments</h3>
+<p>A minimal example using dynamic segments, i.e. using
+<code>Route(to = &quot;:id/*&quot;)</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">library</span>(reactRouter)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">library</span>(bslib)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">HashRouter</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  bslib<span class="sc">::</span><span class="fu">page</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    <span class="fu">Link</span>(</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>      <span class="at">to =</span> <span class="st">&quot;/&quot;</span>, </span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>      <span class="fu">h3</span>(<span class="st">&quot;reactRouter with dynamic routes&quot;</span>, <span class="at">class =</span> <span class="st">&quot;m-3&quot;</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>      <span class="at">style =</span> <span class="st">&quot;text-decoration: none; color: black&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    ),</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>    <span class="fu">Routes</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>      <span class="fu">Route</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;/&quot;</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>        <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>          <span class="co"># tags$a() necessary to observe `url_hash` in session</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>          <span class="fu">NavLink</span>(</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;project/1/overview&quot;</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>            <span class="st">&quot;Project 1&quot;</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>          ),</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>          tags<span class="sc">$</span><span class="fu">br</span>(),</span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>          <span class="fu">NavLink</span>(</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;project/2/overview&quot;</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>            <span class="st">&quot;Project 2&quot;</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>          )</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>        )</span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>      ),</span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>      <span class="fu">Route</span>(</span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>        <span class="at">path =</span> <span class="st">&quot;project/:id/*&quot;</span>, </span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>        <span class="at">element =</span> <span class="fu">div</span>(</span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>          <span class="fu">NavLink</span>(</span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;overview&quot;</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>            <span class="st">&quot;Overview&quot;</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>          ),</span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a>          tags<span class="sc">$</span><span class="fu">br</span>(),</span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a>          <span class="fu">NavLink</span>(</span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a>            <span class="at">to =</span> <span class="st">&quot;analysis&quot;</span>,</span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a>            <span class="st">&quot;Analysis&quot;</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a>          ),</span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a>          <span class="fu">Outlet</span>()</span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a>        ),</span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a>        <span class="at">children =</span> <span class="fu">list</span>(</span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;overview&quot;</span>,</span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">uiOutput</span>(<span class="st">&quot;uiOverview&quot;</span>)</span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a>          ),</span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a>          reactRouter<span class="sc">::</span><span class="fu">Route</span>(</span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a>            <span class="at">path =</span> <span class="st">&quot;analysis&quot;</span>,</span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a>            <span class="at">element =</span> <span class="fu">uiOutput</span>(<span class="st">&quot;uiAnalysis&quot;</span>)</span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a>          )</span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a>        )</span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a>      )</span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a>    )</span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a>  )</span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a>)</span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a>  </span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a>  url_hash <span class="ot">&lt;-</span> shiny<span class="sc">::</span><span class="fu">reactiveVal</span>(<span class="at">value =</span> <span class="cn">NA</span>)</span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a>  <span class="co"># update reactive values based on url hash</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a>  <span class="fu">observeEvent</span>(session<span class="sc">$</span>clientData<span class="sc">$</span>url_hash, {</span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a>    current_url_hash <span class="ot">&lt;-</span> session<span class="sc">$</span>clientData<span class="sc">$</span>url_hash</span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a>    <span class="fu">print</span>(current_url_hash)</span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a>    <span class="fu">url_hash</span>(current_url_hash)</span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a>  })</span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a>  </span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a>  output<span class="sc">$</span>uiOverview <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a>    <span class="fu">url_hash</span>()</span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a>  })</span>
+<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a>  output<span class="sc">$</span>uiAnalysis <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a>    <span class="fu">url_hash</span>()</span>
+<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a>  })</span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a>}</span>
+<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a></span>
+<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<p>Run a more advanced example of dynamic routes with:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">reactRouterExample</span>(<span class="st">&quot;dynamic-segments&quot;</span>)</span></code></pre></div>
 </div>
 <div id="alternatives" class="section level3">
 <h3>Alternatives</h3>
@@ -15836,7 +15740,7 @@ still WIP).</li>
 </div>
 <div id="more-information" class="section level3">
 <h3>More information</h3>
-<p>reactRouter implements React Router <a href="https://reactrouter.com/6.30.0">v.6.30.0</a>.</p>
+<p><strong>reactRouter</strong> implements React Router <a href="https://reactrouter.com/6.30.0">v.6.30.0</a>.</p>
 <p>More info about how to use React Router can be found in the <a href="https://reactrouter.com/6.30.0">official website</a>.</p>
 </div>
 </div>
