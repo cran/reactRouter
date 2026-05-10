@@ -11,61 +11,166 @@
 NULL
 
 component <- function(name, module = 'react-router-dom') {
-  function(...) shiny.react::reactElement(
-    module = module,
-    name = name,
-    props = shiny.react::asProps(...),
-    deps = reactRouterDependency()
-  )
+  function(...) {
+    shiny.react::reactElement(
+      module = module,
+      name = name,
+      props = shiny.react::asProps(...),
+      deps = reactRouterDependency()
+    )
+  }
 }
 
 #' HashRouter
 #' @rdname HashRouter
-#' @description \url{https://reactrouter.com/6.30.0/router-components/hash-router}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.HashRouter.html}
 #' @param ... Props to pass to element.
 #' @return A HashRouter component.
 #' @export
-HashRouter <- component('HashRouter')
+HashRouter <- function(...) {
+  tag <- shiny.react::reactElement(
+    module = 'react-router-dom',
+    name = "HashRouter",
+    props = shiny.react::asProps(...),
+    deps = reactRouterDependency()
+  )
+  class(tag) <- c("reactRouter", class(tag))
+  tag
+}
 
 #' BrowserRouter
 #' @rdname BrowserRouter
-#' @description \url{https://reactrouter.com/6.30.0/router-components/browser-router}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.BrowserRouter.html}
 #' @param ... Props to pass to element.
 #' @return A BrowserRouter component.
 #' @export
-BrowserRouter <- component('BrowserRouter')
+BrowserRouter <- function(...) {
+  tag <- shiny.react::reactElement(
+    module = 'react-router-dom',
+    name = "BrowserRouter",
+    props = shiny.react::asProps(...),
+    deps = reactRouterDependency()
+  )
+  class(tag) <- c("reactRouter", class(tag))
+  tag
+}
 
 #' MemoryRouter
 #' @rdname MemoryRouter
-#' @description \url{https://reactrouter.com/6.30.0/router-components/memory-router}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.MemoryRouter.html}
 #' @param ... Props to pass to element.
 #' @return A MemoryRouter component.
 #' @export
-MemoryRouter <- component('MemoryRouter')
+MemoryRouter <- function(...) {
+  tag <- shiny.react::reactElement(
+    module = 'react-router-dom',
+    name = "MemoryRouter",
+    props = shiny.react::asProps(...),
+    deps = reactRouterDependency()
+  )
+  class(tag) <- c("reactRouter", class(tag))
+  tag
+}
 
 #' Route
-#' 
-#' \url{https://reactrouter.com/6.30.0/components/route}
-#' 
-#' Internally the `element` is wrapped in a `shiny::div()` 
-#' with a UUID key so, in case R shiny is used, shiny can differentiate 
+#'
+#' \url{https://api.reactrouter.com/v7/functions/react-router.Route.html}
+#'
+#' Internally the `element` is wrapped in a `shiny::div()`
+#' with a UUID key so, in case R shiny is used, shiny can differentiate
 #' each element.
-#' 
+#'
+#' Additional React Router \code{Route} props can be passed through \code{...}:
+#' \itemize{
+#'   \item \code{path} (Character): path pattern, supports \code{:param},
+#'     optional \code{:param?}, and splat \code{*}.
+#'   \item \code{index} (Boolean): mark this as the index route of its parent.
+#'   \item \code{caseSensitive} (Boolean): match the path case-sensitively.
+#'   \item \code{id} (Character): stable route id, required for use with
+#'     \code{\link{useRouteLoaderData}}.
+#'   \item \code{handle} (Any): arbitrary value exposed via
+#'     \code{\link{useMatches}} for breadcrumbs and similar use cases.
+#'   \item \code{shouldRevalidate} (\code{\link{JS}}): function controlling
+#'     whether the loader re-runs on a given navigation.
+#'   \item \code{lazy} (\code{\link{JS}}): code-splitting hook returning a
+#'     \code{Promise} resolving to a route module.
+#'   \item \code{hasErrorBoundary} (Boolean): explicit error-boundary flag
+#'     (rarely needed when \code{errorElement} is provided).
+#' }
+#'
 #' @rdname Route
-#' @param ... Props to pass to element.
-#' @param element element wrapped in a `shiny::div()`.
-#' @param key By default uses a UUID key in the `div()` of the `element` arg.
+#' @param ... Additional Route props (see Details).
+#' @param element The element to render when the route matches. Wrapped on
+#'   the JS side in a no-DOM \code{Keyed} component so React remounts the
+#'   subtree on every route change -- this is required for Shiny output
+#'   bindings (e.g. \code{textOutput()}) to reinitialise correctly when two
+#'   routes render the same component shape with different namespaces.
+#'   Unlike the previous \code{<div>} wrapper, \code{Keyed} adds no DOM node,
+#'   so layouts like MUI \code{Grid} that require typed direct children keep
+#'   working.
+#' @param key Stable React key for the route's \code{element}. Defaults to
+#'   a random alphanumeric string per \code{Route()} call, so each route's
+#'   element has a distinct identity from its siblings -- this is what
+#'   causes React to unmount the previous route's subtree (and reinitialise
+#'   its Shiny output bindings) when navigating between routes that render
+#'   the same component shape. You almost never need to pass this
+#'   explicitly. \strong{Note:} this key only affects identity of the
+#'   route's \code{element}; it does \emph{not} rebuild the
+#'   \code{\link{RouterProvider}} data router. The route tree is created
+#'   once on mount and subsequent \code{Route()} edits are ignored; to
+#'   apply a new route tree at runtime, give \code{RouterProvider} itself
+#'   a changing \code{key} (e.g. via \code{shiny::renderUI}).
+#' @param loader Optional. A \code{\link{JS}} expression evaluating to a
+#'   loader function, e.g. \code{JS("({ params }) => fetch(...)")}. For a
+#'   plain unconditional redirect, use \code{\link{redirect}}. To embed
+#'   static R data, serialize it first with \code{jsonlite::toJSON()} and
+#'   wrap the result in \code{JS()}.
+#' @param action Optional. A \code{\link{JS}} expression evaluating to an
+#'   action function called by \code{\link{Form}} submissions and
+#'   \code{\link{useSubmit}} / \code{\link{useFetcher}} submits.
+#' @param errorElement Optional. Element rendered when the route's
+#'   \code{loader}, \code{action}, or rendering throws.
 #' @return A Route component.
 #' @export
-Route <- function(..., element, key = uuid::UUIDgenerate()) {
+Route <- function(
+  ...,
+  element,
+  loader = NULL,
+  action = NULL,
+  errorElement = NULL,
+  key = randomKey()
+) {
+  # Mirrors the diagnostic quality of the hook wrappers: surface the most
+  # common mistake (passing an R function instead of a JS() expression) at
+  # call time, rather than as a confusing browser-side error later.
+  if (!is.null(loader) && !inherits(loader, "JS_EVAL")) {
+    stop(
+      "Route(): `loader` must be a JS() expression, e.g. ",
+      "loader = JS(\"({ params }) => fetch(...)\"). ",
+      "For static R data, use jsonlite::toJSON() and wrap with JS(), or use redirect()/dataResponse().",
+      call. = FALSE
+    )
+  }
+  if (!is.null(action) && !inherits(action, "JS_EVAL")) {
+    stop(
+      "Route(): `action` must be a JS() expression, e.g. ",
+      "action = JS(\"async ({ request }) => { ... }\").",
+      call. = FALSE
+    )
+  }
   shiny.react::reactElement(
     module = "react-router-dom",
     name = "Route",
     props = shiny.react::asProps(
-      ..., 
-      element = shiny::div(
-        key = key, 
-        element
+      ...,
+      loader = loader,
+      action = action,
+      errorElement = errorElement,
+      element = shiny.react::reactElement(
+        module = "@/reactRouter",
+        name = "Keyed",
+        props = shiny.react::asProps(key = key, element),
+        deps = reactRouterDependency()
       )
     ),
     deps = reactRouterDependency()
@@ -73,57 +178,84 @@ Route <- function(..., element, key = uuid::UUIDgenerate()) {
 }
 
 #' Link
-#' 
-#' The `reloadDocument` can be used to skip client side routing and let the 
-#' browser handle the transition normally (as if it were an <a href>). Given 
-#' shiny behavior, using `reloadDocument = TRUE` allows to render correctly
-#' objects created in the server side.
-#' 
+#'
+#' \url{https://api.reactrouter.com/v7/variables/react-router.Link.html}
+#'
+#' The `reloadDocument` prop controls whether clicking the link uses React
+#' Router's client-side navigation (`FALSE`, the default) or skips it and lets
+#' the browser handle the click natively (`TRUE`). The default is correct for
+#' almost every use, including Shiny apps with server-rendered output
+#' (`uiOutput`, `renderUI`, `plotOutput`, htmlwidgets) — Shiny output bindings
+#' re-attach automatically when React Router mounts the new route's element.
+#' See `vignette("routers", package = "reactRouter")` for details.
+#'
+#' \strong{Two flavors.} Pick \code{Link()} for a plain navigation link
+#' (the common case, mirroring React Router's API one-to-one). Pick
+#' \code{Link.shinyInput()} only when you also need the click to fire a
+#' Shiny input on the server — it adds an \code{inputId} that updates with
+#' the link's \code{to} every time it is clicked, while still navigating.
+#' If in doubt, use \code{Link()}.
+#'
 #' @rdname Link
 #' @param ... Props to pass to element.
-#' @param reloadDocument Boolean. Default FALSE.
+#' @param reloadDocument Boolean. Default `FALSE`. When `TRUE`, the click is
+#'   handled natively by the browser instead of by React Router's client-side
+#'   navigation. Rarely needed — leave at the default in most cases.
 #' @return A Link component.
 #' @export
-Link <- function(..., reloadDocument = TRUE) {
+Link <- function(..., reloadDocument = FALSE) {
+  # Only forward reloadDocument when the caller actually supplied it, so
+  # we don't override any future change to React Router's own default.
+  props <- if (missing(reloadDocument)) {
+    shiny.react::asProps(...)
+  } else {
+    shiny.react::asProps(..., reloadDocument = reloadDocument)
+  }
   shiny.react::reactElement(
     module = "react-router-dom",
     name = "Link",
-    props = shiny.react::asProps(
-      ..., 
-      reloadDocument = reloadDocument
-    ),
+    props = props,
     deps = reactRouterDependency()
   )
 }
 
 #' Navigate
 #' @rdname Navigate
-#' @description \url{https://reactrouter.com/6.30.0/components/navigate}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.Navigate.html}
 #' @param ... Props to pass to element.
 #' @return A Navigate component.
 #' @export
 Navigate <- component('Navigate')
 
 #' NavLink
-#' 
-#' The `reloadDocument` can be used to skip client side routing and let the 
-#' browser handle the transition normally (as if it were an <a href>). Given 
-#' shiny behavior, using `reloadDocument = TRUE` allows to render correctly
-#' objects created in the server side.
-#' 
+#'
+#' \url{https://api.reactrouter.com/v7/variables/react-router.NavLink.html}
+#'
+#' The `reloadDocument` prop controls whether clicking the link uses React
+#' Router's client-side navigation (`FALSE`, the default) or skips it and lets
+#' the browser handle the click natively (`TRUE`). The default is correct for
+#' almost every use, including Shiny apps with server-rendered output
+#' (`uiOutput`, `renderUI`, `plotOutput`, htmlwidgets) — Shiny output bindings
+#' re-attach automatically when React Router mounts the new route's element.
+#' See `vignette("routers", package = "reactRouter")` for details.
+#'
 #' @rdname NavLink
 #' @param ... Props to pass to element.
-#' @param reloadDocument Boolean. Default FALSE.
+#' @param reloadDocument Boolean. Default `FALSE`. When `TRUE`, the click is
+#'   handled natively by the browser instead of by React Router's client-side
+#'   navigation. Rarely needed — leave at the default in most cases.
 #' @return A NavLink component.
 #' @export
-NavLink <- function(..., reloadDocument = TRUE) {
+NavLink <- function(..., reloadDocument = FALSE) {
+  props <- if (missing(reloadDocument)) {
+    shiny.react::asProps(...)
+  } else {
+    shiny.react::asProps(..., reloadDocument = reloadDocument)
+  }
   shiny.react::reactElement(
     module = "react-router-dom",
     name = "NavLink",
-    props = shiny.react::asProps(
-      ..., 
-      reloadDocument = reloadDocument
-    ),
+    props = props,
     deps = reactRouterDependency()
   )
 }
@@ -131,7 +263,7 @@ NavLink <- function(..., reloadDocument = TRUE) {
 
 #' Outlet
 #' @rdname Outlet
-#' @description \url{https://reactrouter.com/6.30.0/components/outlet}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.Outlet.html}
 #' @param ... Props to pass to element.
 #' @return A Outlet component.
 #' @export
@@ -139,8 +271,33 @@ Outlet <- component('Outlet')
 
 #' Routes
 #' @rdname Routes
-#' @description \url{https://reactrouter.com/6.30.0/components/routes}
+#' @description \url{https://api.reactrouter.com/v7/functions/react-router.Routes.html}
 #' @param ... Props to pass to element.
 #' @return A Routes component.
 #' @export
 Routes <- component('Routes')
+
+#' Form
+#' @rdname Form
+#' @description \url{https://api.reactrouter.com/v7/variables/react-router.Form.html}
+#' @param ... Props to pass to element.
+#' @return A Form component.
+#' @export
+Form <- component('Form')
+
+#' ScrollRestoration
+#'
+#' \url{https://api.reactrouter.com/v7/functions/react-router.ScrollRestoration.html}
+#'
+#' Emulates the browser's scroll restoration on location changes after loaders
+#' have completed. Place once inside the root layout of a data router app.
+#' Requires a data router (\code{\link{createBrowserRouter}},
+#' \code{\link{createHashRouter}}, etc.).
+#'
+#' @rdname ScrollRestoration
+#' @param ... Props to pass to element. Notable props: \code{getKey} (a
+#'   \code{\link{JS}} function to compute the scroll key from the location)
+#'   and \code{storageKey} (Character, custom \code{sessionStorage} key).
+#' @return A ScrollRestoration component.
+#' @export
+ScrollRestoration <- component('ScrollRestoration')

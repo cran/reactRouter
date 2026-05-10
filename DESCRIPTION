@@ -1,33 +1,30 @@
 Package: reactRouter
 Type: Package
 Title: 'React Router' for 'shiny' Apps and 'Quarto'
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(
-    person(given = "Felix", family = "Luginbuhl", role = c("aut", "cre"), email = "felix.luginbuhl@protonmail.ch", comment = c(ORCID = "0009-0008-6625-2899")),
-    person(given = "Andryas", family = "Waurzenczak", role = c("ctb")),
-    person(family = "Shopify Inc.", role = c("ctb", "cph"), comment = "Shopify Inc. template <https://reactrouter.com/>")
+    person(given = "Felix", family = "Luginbuhl", role = c("aut", "cre", "cph"), email = "felix.luginbuhl@protonmail.ch", comment = c(ORCID = "0009-0008-6625-2899")),
+    person(given = "Andryas", family = "Waurzenczak", role = c("ctb"))
     )
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
-Description: You can easily share url pages using 'React Router' in 'shiny' applications
-  and 'Quarto' documents. The package wraps the 'react-router-dom' 'React' library and
-  provides access to hash routing to navigate on multiple url pages.
+Description: Provides a wrapper around the 'react-router-dom' 'React' library for use in
+  'Shiny' applications and 'Quarto' documents. Enables client-side routing with hash,
+  memory, and browser history strategies, nested routes, dynamic segments, data loaders,
+  actions, and navigation hooks.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Depends: R (>= 3.4)
-Imports: htmltools, shiny, shiny.react, checkmate, uuid
-Suggests: testthat (>= 3.0.0), chromote (>= 0.1.1.9001), shinytest2,
-        knitr, rmarkdown
-RoxygenNote: 7.3.2
+Depends: R (>= 4.0)
+Imports: htmltools, shiny, shiny.react, checkmate, jsonlite
+Suggests: testthat (>= 3.0.0), chromote (>= 0.1.1), shinytest2, dplyr,
+        muiMaterial
+RoxygenNote: 7.3.3
 URL: https://felixluginbuhl.com/reactRouter/
 BugReports: https://github.com/lgnbhl/reactRouter/issues
 Config/testthat/edition: 3
-VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-07-23 14:05:29 UTC; felix
-Author: Felix Luginbuhl [aut, cre] (ORCID:
+Packaged: 2026-05-10 10:03:04 UTC; felix
+Author: Felix Luginbuhl [aut, cre, cph] (ORCID:
     <https://orcid.org/0009-0008-6625-2899>),
-  Andryas Waurzenczak [ctb],
-  Shopify Inc. [ctb, cph] (Shopify Inc. template
-    <https://reactrouter.com/>)
+  Andryas Waurzenczak [ctb]
 Repository: CRAN
-Date/Publication: 2025-07-23 14:30:02 UTC
+Date/Publication: 2026-05-10 10:20:02 UTC

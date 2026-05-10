@@ -6,9 +6,9 @@
 \alias{updateLink.shinyInput}
 \title{Link}
 \usage{
-Link(..., reloadDocument = TRUE)
+Link(..., reloadDocument = FALSE)
 
-Link.shinyInput(inputId, ..., reloadDocument = TRUE)
+Link.shinyInput(inputId, ..., reloadDocument = FALSE)
 
 updateLink.shinyInput(
   session = shiny::getDefaultReactiveDomain(),
@@ -19,20 +19,45 @@ updateLink.shinyInput(
 \arguments{
 \item{...}{Props to pass to element.}
 
-\item{reloadDocument}{Boolean. Default TRUE. Let browser handle the transition normally}
+\item{reloadDocument}{Boolean. Default FALSE. Let browser handle the transition normally}
 
 \item{inputId}{ID of the component.}
 
-\item{session}{Object passed as the `session` argument to Shiny server.}
+\item{session}{For \code{updateLink.shinyInput()} / \code{updateNavLink.shinyInput()}
+only: the Shiny session object. Defaults to the current reactive domain.
+Not used by \code{Link.shinyInput()} / \code{NavLink.shinyInput()} themselves.}
 }
 \value{
 A Link component.
 }
 \description{
-The `reloadDocument` can be used to skip client side routing and let the 
-browser handle the transition normally (as if it were an <a href>). Given 
-shiny behavior, using `reloadDocument = TRUE` allows to render correctly
-objects created in the server side.
+\url{https://api.reactrouter.com/v7/variables/react-router.Link.html}
 
-\url{https://reactrouter.com/6.30.0/components/link}
+\url{https://api.reactrouter.com/v7/variables/react-router.Link.html}
+
+\strong{Repeat clicks.} The Shiny input value is the link's \code{to}
+string. Clicking the same link twice publishes the same value, and Shiny
+suppresses identical-value updates by default — your
+\code{observeEvent(input$myLink, ...)} will fire only on the first click.
+If you need to react to every click (e.g. logging, refreshing a panel),
+bind to a counter or use \code{shiny::observeEvent(..., ignoreNULL = FALSE,
+priority = "event")} alongside an explicit click counter, or wrap the
+click target in a regular \code{shiny::actionButton()} that triggers the
+navigation programmatically.
+}
+\details{
+The `reloadDocument` prop controls whether clicking the link uses React
+Router's client-side navigation (`FALSE`, the default) or skips it and lets
+the browser handle the click natively (`TRUE`). The default is correct for
+almost every use, including Shiny apps with server-rendered output
+(`uiOutput`, `renderUI`, `plotOutput`, htmlwidgets) — Shiny output bindings
+re-attach automatically when React Router mounts the new route's element.
+See `vignette("routers", package = "reactRouter")` for details.
+
+\strong{Two flavors.} Pick \code{Link()} for a plain navigation link
+(the common case, mirroring React Router's API one-to-one). Pick
+\code{Link.shinyInput()} only when you also need the click to fire a
+Shiny input on the server — it adds an \code{inputId} that updates with
+the link's \code{to} every time it is clicked, while still navigating.
+If in doubt, use \code{Link()}.
 }

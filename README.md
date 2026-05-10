@@ -10,52 +10,143 @@ status](https://www.r-pkg.org/badges/version/reactRouter)](https://CRAN.R-projec
 [![Grand
 total](https://cranlogs.r-pkg.org/badges/grand-total/reactRouter)](https://cran.r-project.org/package=reactRouter)
 [![R-CMD-check](https://github.com/lgnbhl/reactRouter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/reactRouter/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/react--router--dom-6.30.0-blue.svg)](https://reactrouter.com/6.30.0)
+[![](https://img.shields.io/badge/react--router--dom-7.15.0-blue.svg)](https://reactrouter.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
-The goal of **reactRouter** is to provide a wrapper around [React Router
-(v6)](https://reactrouter.com/6.30.0).
+`reactRouter` brings [React Router](https://reactrouter.com), the
+world’s most popular React routing library, to R and Shiny.
+
+### Why reactRouter?
+
+`reactRouter` works with Shiny apps and Quarto documents — and also on
+its own. It extends whatever you are already building with new features:
+
+- **URL-based navigation** — your application behaves like a real
+  website, with a home page and multiple sub-pages (e.g. one per report
+  or analysis), each with its own shareable URL.
+- **Reactivity without a server** — data loaders fetch and display data
+  as users navigate, entirely in the browser, without requiring a
+  running R server.
+- **Static hosting** — the output is plain HTML/JS, deployable to GitHub
+  Pages, Netlify, Posit Connect, or any static file host (if you don’t
+  use it with Shiny).
+- **AI-friendly** — React Router is one of the most widely used
+  JavaScript libraries, so AI tools like Claude, ChatGPT, or Copilot
+  know it well. Ask an AI to generate React Router code, adapt it to R,
+  and you’re done — no React knowledge needed.
+
+Used alone, `reactRouter` brings the best of both worlds: the
+**reactivity of Shiny** (data that updates as users interact) and the
+**simplicity of Quarto** (multiple pages as static files, hostable
+anywhere, no server to maintain or pay for).
 
 ### Usage
 
-You can easily add URL pages in Quarto document or R shiny like so:
+Create **URL pages** easily:
 
 ``` r
 library(reactRouter)
+library(htmltools)
 
-HashRouter(
-  NavLink(to = "/", "Main"),
-  NavLink(to = "/analysis", "Analysis"),
-  Routes(
-    Route(path = "/", element = "Main content"),
-    Route(path = "/analysis", element = "Analysis content")
+ui <- RouterProvider(
+  router = createHashRouter(
+    Route(
+      path = "/",
+      element = div(
+        NavLink(to = "/", "Main"), " | ",
+        NavLink(to = "/analysis", "Analysis"), hr(),
+        Outlet()
+      ),
+      Route(index = TRUE, element = "Main content"),
+      Route(path = "analysis", element = "Analysis content")
+    )
   )
 )
+
+# htmltools::save_html(ui, "index.html")
+htmltools::browsable(ui)
+```
+
+Or use **data loaders** to fetch and display data client-side — no R
+server needed:
+
+``` r
+library(reactRouter)
+library(htmltools)
+
+# local or fetch an API
+people_json <- jsonlite::toJSON(dplyr::starwars, dataframe = "rows", auto_unbox = TRUE)
+
+ui <- RouterProvider(
+  router = createHashRouter(
+    Route(
+      path = "/",
+      element = div(
+        NavLink(to = "/", "Home"), " | ",
+        NavLink(to = "/people/1", "Luke"),
+        hr(), Outlet()
+      ),
+      Route(index = TRUE, element = p("Try #/people/4 for Darth Vader.")),
+      Route(
+        path = "people/:id",
+        loader = JS(sprintf("({ params }) => (%s)[params.id - 1]", people_json)),
+        element = div(
+          useLoaderData(tags$h3(), selector = "name"),
+          useLoaderData(tags$p(),  selector = "homeworld")
+        )
+      )
+    )
+  )
+)
+
+# htmltools::save_html(ui, "index.html")
+htmltools::browsable(ui)
 ```
 
 ### Install
 
 ``` r
-#remotes::install_github("lgnbhl/reactRouter") # development version
-
 install.packages("reactRouter")
+# remotes::install_github("lgnbhl/reactRouter") # development version
 ```
 
-### Example
+### Resources
 
-Get started with a showcase example:
+- [Package documentation](https://felixluginbuhl.com/reactRouter/)
+- [Getting Started
+  vignette](https://felixluginbuhl.com/reactRouter/articles/introduction.html)
+- [All R
+  examples](https://github.com/lgnbhl/reactRouter/tree/main/inst/examples)
 
-``` r
-# print all examples available: reactRouterExample()
-reactRouterExample("basic")
-```
+### Acknowledgements
 
-Read the vignette
-[here](https://felixluginbuhl.com/reactRouter/articles/introduction.html)
-for detailed use cases with Quarto and R Shiny.
+`reactRouter` is built on top of
+[shiny.react](https://github.com/Appsilon/shiny.react), the R package by
+[Appsilon](https://www.appsilon.com/) that makes it possible to use
+React components in Shiny and Quarto.
+
+Data loaders work seamlessly with any R package that uses `shiny.react`
+under the hood. This includes the [MUI](https://mui.com) component
+ecosystem for R:
+
+- [muiMaterial](https://github.com/lgnbhl/muiMaterial) — Material UI
+  components (buttons, dialogs, tabs, and more)
+- [muiDataGrid](https://github.com/lgnbhl/muiDataGrid) — interactive
+  data grids
+- [muiCharts](https://github.com/lgnbhl/muiCharts) — charts and
+  visualisations
+- [muiTreeView](https://github.com/lgnbhl/muiTreeView) — tree view
+  components
+
+Learn more about how to use data loaders with these R packages
+[here](https://felixluginbuhl.com/reactRouter/articles/useLoaderData.html).
 
 ### Contribute
 
-Would you like to contribute to the package? Have a look at the current
-[roadmap](https://github.com/users/lgnbhl/projects/2/views/1).
+Found a bug or have a feature request? [Open an
+issue](https://github.com/lgnbhl/reactRouter/issues). Pull requests are
+welcome.
+
+Follow [Felix Luginbuhl](https://linkedin.com/in/FelixLuginbuhl) on
+LinkedIn for updates.

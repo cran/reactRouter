@@ -4,23 +4,79 @@
 \alias{Route}
 \title{Route}
 \usage{
-Route(..., element, key = uuid::UUIDgenerate())
+Route(
+  ...,
+  element,
+  loader = NULL,
+  action = NULL,
+  errorElement = NULL,
+  key = randomKey()
+)
 }
 \arguments{
-\item{...}{Props to pass to element.}
+\item{...}{Additional Route props (see Details).}
 
-\item{element}{element wrapped in a `shiny::div()`.}
+\item{element}{The element to render when the route matches. Wrapped on
+the JS side in a no-DOM \code{Keyed} component so React remounts the
+subtree on every route change -- this is required for Shiny output
+bindings (e.g. \code{textOutput()}) to reinitialise correctly when two
+routes render the same component shape with different namespaces.
+Unlike the previous \code{<div>} wrapper, \code{Keyed} adds no DOM node,
+so layouts like MUI \code{Grid} that require typed direct children keep
+working.}
 
-\item{key}{By default uses a UUID key in the `div()` of the `element` arg.}
+\item{loader}{Optional. A \code{\link{JS}} expression evaluating to a
+loader function, e.g. \code{JS("({ params }) => fetch(...)")}. For a
+plain unconditional redirect, use \code{\link{redirect}}. To embed
+static R data, serialize it first with \code{jsonlite::toJSON()} and
+wrap the result in \code{JS()}.}
+
+\item{action}{Optional. A \code{\link{JS}} expression evaluating to an
+action function called by \code{\link{Form}} submissions and
+\code{\link{useSubmit}} / \code{\link{useFetcher}} submits.}
+
+\item{errorElement}{Optional. Element rendered when the route's
+\code{loader}, \code{action}, or rendering throws.}
+
+\item{key}{Stable React key for the route's \code{element}. Defaults to
+a random alphanumeric string per \code{Route()} call, so each route's
+element has a distinct identity from its siblings -- this is what
+causes React to unmount the previous route's subtree (and reinitialise
+its Shiny output bindings) when navigating between routes that render
+the same component shape. You almost never need to pass this
+explicitly. \strong{Note:} this key only affects identity of the
+route's \code{element}; it does \emph{not} rebuild the
+\code{\link{RouterProvider}} data router. The route tree is created
+once on mount and subsequent \code{Route()} edits are ignored; to
+apply a new route tree at runtime, give \code{RouterProvider} itself
+a changing \code{key} (e.g. via \code{shiny::renderUI}).}
 }
 \value{
 A Route component.
 }
 \description{
-\url{https://reactrouter.com/6.30.0/components/route}
+\url{https://api.reactrouter.com/v7/functions/react-router.Route.html}
 }
 \details{
-Internally the `element` is wrapped in a `shiny::div()` 
-with a UUID key so, in case R shiny is used, shiny can differentiate 
+Internally the `element` is wrapped in a `shiny::div()`
+with a UUID key so, in case R shiny is used, shiny can differentiate
 each element.
+
+Additional React Router \code{Route} props can be passed through \code{...}:
+\itemize{
+  \item \code{path} (Character): path pattern, supports \code{:param},
+    optional \code{:param?}, and splat \code{*}.
+  \item \code{index} (Boolean): mark this as the index route of its parent.
+  \item \code{caseSensitive} (Boolean): match the path case-sensitively.
+  \item \code{id} (Character): stable route id, required for use with
+    \code{\link{useRouteLoaderData}}.
+  \item \code{handle} (Any): arbitrary value exposed via
+    \code{\link{useMatches}} for breadcrumbs and similar use cases.
+  \item \code{shouldRevalidate} (\code{\link{JS}}): function controlling
+    whether the loader re-runs on a given navigation.
+  \item \code{lazy} (\code{\link{JS}}): code-splitting hook returning a
+    \code{Promise} resolving to a route module.
+  \item \code{hasErrorBoundary} (Boolean): explicit error-boundary flag
+    (rarely needed when \code{errorElement} is provided).
+}
 }

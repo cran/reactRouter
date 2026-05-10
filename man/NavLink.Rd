@@ -6,9 +6,9 @@
 \alias{updateNavLink.shinyInput}
 \title{NavLink}
 \usage{
-NavLink(..., reloadDocument = TRUE)
+NavLink(..., reloadDocument = FALSE)
 
-NavLink.shinyInput(inputId, ..., reloadDocument = TRUE)
+NavLink.shinyInput(inputId, ..., reloadDocument = FALSE)
 
 updateNavLink.shinyInput(
   session = shiny::getDefaultReactiveDomain(),
@@ -19,20 +19,33 @@ updateNavLink.shinyInput(
 \arguments{
 \item{...}{Props to pass to element.}
 
-\item{reloadDocument}{Boolean. Default TRUE. Let browser handle the transition normally}
+\item{reloadDocument}{Boolean. Default FALSE Let browser handle the transition normally}
 
 \item{inputId}{ID of the component.}
 
-\item{session}{Object passed as the `session` argument to Shiny server.}
+\item{session}{For \code{updateLink.shinyInput()} / \code{updateNavLink.shinyInput()}
+only: the Shiny session object. Defaults to the current reactive domain.
+Not used by \code{Link.shinyInput()} / \code{NavLink.shinyInput()} themselves.}
 }
 \value{
 A NavLink component.
 }
 \description{
-The `reloadDocument` can be used to skip client side routing and let the 
-browser handle the transition normally (as if it were an <a href>). Given 
-shiny behavior, using `reloadDocument = TRUE` allows to render correctly
-objects created in the server side.
+\url{https://api.reactrouter.com/v7/variables/react-router.NavLink.html}
 
-\url{https://reactrouter.com/6.30.0/components/nav-link}
+\url{https://api.reactrouter.com/v7/variables/react-router.NavLink.html}
+
+\strong{Repeat clicks.} The Shiny input value is the link's \code{to}
+string; clicking the same link twice publishes the same value and Shiny
+suppresses identical-value updates by default. See
+\code{\link{Link.shinyInput}} for the workaround.
+}
+\details{
+The `reloadDocument` prop controls whether clicking the link uses React
+Router's client-side navigation (`FALSE`, the default) or skips it and lets
+the browser handle the click natively (`TRUE`). The default is correct for
+almost every use, including Shiny apps with server-rendered output
+(`uiOutput`, `renderUI`, `plotOutput`, htmlwidgets) — Shiny output bindings
+re-attach automatically when React Router mounts the new route's element.
+See `vignette("routers", package = "reactRouter")` for details.
 }
