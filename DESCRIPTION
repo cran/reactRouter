@@ -1,7 +1,7 @@
 Package: reactRouter
 Type: Package
 Title: 'React Router' for 'shiny' Apps and 'Quarto'
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person(given = "Felix", family = "Luginbuhl", role = c("aut", "cre", "cph"), email = "felix.luginbuhl@protonmail.ch", comment = c(ORCID = "0009-0008-6625-2899")),
     person(given = "Andryas", family = "Waurzenczak", role = c("ctb"))
@@ -22,9 +22,9 @@ URL: https://felixluginbuhl.com/reactRouter/
 BugReports: https://github.com/lgnbhl/reactRouter/issues
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2026-05-10 10:03:04 UTC; felix
+Packaged: 2026-09-01 08:00:31 UTC; felix
 Author: Felix Luginbuhl [aut, cre, cph] (ORCID:
     <https://orcid.org/0009-0008-6625-2899>),
   Andryas Waurzenczak [ctb]
 Repository: CRAN
-Date/Publication: 2026-05-10 10:20:02 UTC
+Date/Publication: 2026-09-01 08:20:02 UTC

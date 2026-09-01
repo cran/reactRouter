@@ -1,7 +1,7 @@
-8c5b3be6733e8469a3483617542d478a *DESCRIPTION
+a3f46a1a5d252076dd0b4c1ac31187b5 *DESCRIPTION
 68e2f89632869f4fe228a2f7353069db *LICENSE
 61f5d29d3ee078e2ed25b90921296045 *NAMESPACE
-ef03aaed7954f22cdd69abd654d580b8 *NEWS.md
+84fcdaf287de77df8e0de4a9f81276d9 *NEWS.md
 59829cdbd259a94a5707716ca86604f9 *R/RouterProvider.R
 d2cad5b72ed4cea4114e525badcaaf2f *R/browser.R
 b4cca6d14add3b475480713b98602f88 *R/components.R
@@ -11,7 +11,7 @@ b4cca6d14add3b475480713b98602f88 *R/components.R
 51f04718b4f4549e5029eaedff8f41e8 *R/inputs.R
 93f35434ec67e9547b15affee6ca9428 *R/reactRouterExample.R
 c67690415a70c3e49f38cd4df51d9f37 *R/reexports.R
-18caf2181425edbb5235b7144711e875 *README.md
+1cf72d480caadbbc7321b33414f722a1 *README.md
 ecdc89582296f918777c7b6c25571439 *inst/examples/Await/app.R
 8f31b4701ef0f4d32f26a1435803a3d4 *inst/examples/Form/app.R
 5d273cb551ff680b0ae001bfa9b8c472 *inst/examples/MemoryRouter/app.R
@@ -50,8 +50,8 @@ bf9dc395dab4133e3c65cdc43a8bf003 *inst/examples/useParams/app.R
 984f6d565aadec0440ea25e72cd8eda2 *inst/examples/useSearchParams/app.R
 273d904619c6cd5f443b094093432638 *inst/examples/useSubmit/app.R
 9454d246f2a98bbc037ef89a1dbedddd *inst/examples/useViewTransitionState/app.R
-9fa0c0b13a5bff7377a705fc44ba1d72 *inst/reactRouter/react-router-dom.js
-284ba2eb2f7fc0e190ae74c6bac1ac8d *inst/reactRouter/react-router-dom.js.LICENSE.txt
+81109b687157d30a340e0a75c57e6911 *inst/reactRouter/react-router-dom.js
+e08ce8e0e82a9ff114ac9c6c84cabc27 *inst/reactRouter/react-router-dom.js.LICENSE.txt
 976db93d2d047dd4da0bbd9b4ad820a8 *man/Await.Rd
 c5116762888c07e5da38ffc3d5296397 *man/BrowserRouter.Rd
 afa5cc964994c753d65cebeafe2d1395 *man/Form.Rd
